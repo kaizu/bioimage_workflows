@@ -12,6 +12,7 @@ This is a test suite.
 """
 
 import scopyon
+import mlflow
 
 """Set physical parameters."""
 
@@ -33,38 +34,42 @@ config.environ.processes = 20
 """Prepare for generating inputs."""
 
 import numpy
-rng = numpy.random.RandomState(123)
-N = 1000
 
-"""Collect data."""
+with mlflow.start_run():
+    rng = numpy.random.RandomState(123)
+    N = 1000
 
-res = []
-for _ in range(10):
-    inputs = rng.uniform(-L_2, +L_2, size=(N, 2))
-    img, infodict = scopyon.form_image(inputs, config=config, rng=rng, full_output=True)
-    spots = scopyon.analysis.spot_detection(
-        img.as_array(), min_sigma=1, max_sigma=4, threshold=40.0, overlap=0.5)
-    res.append((inputs, img, infodict, spots))
+    """Collect data."""
 
-"""Find closest true positions from spots detected."""
+    res = []
+    for _ in range(10):
+        inputs = rng.uniform(-L_2, +L_2, size=(N, 2))
+        img, infodict = scopyon.form_image(inputs, config=config, rng=rng, full_output=True)
+        spots = scopyon.analysis.spot_detection(
+            img.as_array(), min_sigma=1, max_sigma=4, threshold=40.0, overlap=0.5)
+        res.append((inputs, img, infodict, spots))
 
-closest = []
-for inputs, img, infodict, spots in res:
-    data = numpy.array([(data[2], data[3]) for data in infodict['true_data'].values()])
-    for spot in spots:
-        distance = data - spot[0: 2]
-        idx = (distance ** 2).sum(axis=1).argmin()
-        closest.append(distance[idx])
-closest = numpy.array(closest).T
+    """Find closest true positions from spots detected."""
 
-"""Calculate average and std for the accuracy of the spot detection method."""
+    closest = []
+    for inputs, img, infodict, spots in res:
+        data = numpy.array([(data[2], data[3]) for data in infodict['true_data'].values()])
+        for spot in spots:
+            distance = data - spot[0: 2]
+            idx = (distance ** 2).sum(axis=1).argmin()
+            closest.append(distance[idx])
+    closest = numpy.array(closest).T
 
-print(f"Average along x-axis = {numpy.average(closest[0]):+.5f} pixels, std = {numpy.std(closest[0])}")
-print(f"Average along y-axis = {numpy.average(closest[1]):+.5f} pixels, std = {numpy.std(closest[1])}")
+    """Calculate average and std for the accuracy of the spot detection method."""
 
-"""Show the heat map."""
+    print(f"Average along x-axis = {numpy.average(closest[0]):+.5f} pixels, std = {numpy.std(closest[0])}")
+    print(f"Average along y-axis = {numpy.average(closest[1]):+.5f} pixels, std = {numpy.std(closest[1])}")
 
-import plotly.express as px
-H, xedges, yedges = numpy.histogram2d(x=closest[0], y=closest[1], bins=41, range=[[-2, +2], [-2, +2]])
-fig = px.imshow(H, x=(xedges[: -1]+xedges[1: ])*0.5, y=(yedges[: -1]+yedges[1: ])*0.5)
-fig.show()
+    """Show the heat map."""
+
+    import plotly.express as px
+    H, xedges, yedges = numpy.histogram2d(x=closest[0], y=closest[1], bins=41, range=[[-2, +2], [-2, +2]])
+    fig = px.imshow(H, x=(xedges[: -1]+xedges[1: ])*0.5, y=(yedges[: -1]+yedges[1: ])*0.5)
+    fig.show()
+    
+    mlflow.log_param("rng", rng)
