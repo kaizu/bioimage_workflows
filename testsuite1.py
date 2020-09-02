@@ -36,7 +36,8 @@ config.environ.processes = 20
 import numpy
 
 with mlflow.start_run():
-    rng = numpy.random.RandomState(123)
+    foo = 123
+    rng = numpy.random.RandomState(foo)
     N = 1000
 
     """Collect data."""
@@ -72,4 +73,4 @@ with mlflow.start_run():
     fig = px.imshow(H, x=(xedges[: -1]+xedges[1: ])*0.5, y=(yedges[: -1]+yedges[1: ])*0.5)
     fig.show()
     
-    mlflow.log_param("rng", rng)
+    mlflow.log_param("foo", foo)
