@@ -1,0 +1,10 @@
+name: scopyon
+
+conda_env: conda.yaml
+
+entry_points:
+  main:
+    parameters:
+      rng: float
+    command: "python testsuite1.py {rng}"
+    
