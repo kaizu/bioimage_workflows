@@ -1,0 +1,11 @@
+name: scopyon
+channels:
+  - defaults
+dependencies:
+  - python
+  - numpy
+  - pip
+  - pip:
+    - scopyon
+    - mlflow>=1.0
+    
