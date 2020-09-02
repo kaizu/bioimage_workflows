@@ -6,6 +6,6 @@ dependencies:
   - numpy
   - pip
   - pip:
-    - scopyon
+    - git+https://github.com/ecell/scopyon.git
     - mlflow>=1.0
     
