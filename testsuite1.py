@@ -29,7 +29,7 @@ L_2 = config.default.detector.image_size[0] * pixel_length * 0.5
 
 """Set the number of processes to enable `multiprocessing`:"""
 
-config.environ.processes = 2
+#config.environ.processes = 2
 
 """Prepare for generating inputs."""
 
