@@ -5,6 +5,6 @@ conda_env: conda.yaml
 entry_points:
   main:
     parameters:
-      rng: float
-    command: "python testsuite1.py {rng}"
+      foo: int
+    command: "python testsuite1.py {foo}"
     
