@@ -4,8 +4,9 @@ channels:
 dependencies:
   - python
   - numpy
+  - scikit-image
   - pip
   - pip:
-    - git+https://github.com/ecell/scopyon.git
+    - scopyon==1.0.0a4
     - mlflow>=1.0
     
