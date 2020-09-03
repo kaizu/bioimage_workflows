@@ -2,7 +2,6 @@
 
 ## このワークフローの実行の仕方
 
-1. macかlinuxで実行すること
 1. minicondaのinstall
 1. minicondaのpipで `pip install mlflow`
 1. `git clone git@github.com:ecell/bioimage_workflows.git`
