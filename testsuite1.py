@@ -13,29 +13,30 @@ This is a test suite.
 
 import scopyon
 import mlflow
-
-"""Set physical parameters."""
-
-config = scopyon.DefaultConfiguration()
-config.update("""
-default:
-    magnification: 360
-    detector:
-        exposure_time: 0.033
-""")
-
-pixel_length = config.default.detector.pixel_length / config.default.magnification
-L_2 = config.default.detector.image_size[0] * pixel_length * 0.5
-
-"""Set the number of processes to enable `multiprocessing`:"""
-
-#config.environ.processes = 2
-
-"""Prepare for generating inputs."""
-
 import numpy
 
 with mlflow.start_run():
+
+    """Set physical parameters."""
+    magnification = '360'
+    exposure_time = '0.033'
+
+    config = scopyon.DefaultConfiguration()
+    config.update(f"""
+    default:
+        magnification: {magnification}
+        detector:
+            exposure_time: {exposure_time}
+    """)
+
+    pixel_length = config.default.detector.pixel_length / config.default.magnification
+    L_2 = config.default.detector.image_size[0] * pixel_length * 0.5
+
+    """Set the number of processes to enable `multiprocessing`:"""
+
+    #config.environ.processes = 2
+
+    """Prepare for generating inputs."""
     foo = 123
     rng = numpy.random.RandomState(foo)
     N = 1000
@@ -74,3 +75,7 @@ with mlflow.start_run():
     # fig.show()
     
     mlflow.log_param("foo", foo)
+    mlflow.log_param("N", N)
+    mlflow.log_param("magnification", magnification)
+    mlflow.log_param("exposure_time", exposure_time)
+    
