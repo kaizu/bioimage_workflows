@@ -9,4 +9,5 @@ dependencies:
   - pip:
     - scopyon==1.0.0a4
     - mlflow>=1.0
+    - plotly
     
