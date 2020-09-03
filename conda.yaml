@@ -7,7 +7,7 @@ dependencies:
   - scikit-image
   - pip
   - pip:
-    - scopyon==1.0.0a4
+    - git+git://github.com/ecell/scopyon.git@6671e59e18718e599ed6cedb85703bc4a43c9e60
     - mlflow>=1.0
     - plotly
     
