@@ -1,8 +1,7 @@
 # bioimage_workflows
 
-## このワークフローの実行の仕方
+## How to run this workflow
 
-1. minicondaのinstall
-1. minicondaのpipで `pip install mlflow`
-1. `git clone git@github.com:ecell/bioimage_workflows.git`
-1. `mlflow run bioimage_workflows -P foo=123`
+1. Install [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
+1. `pip install mlflow` with Miniconda's pip
+1. `mlflow run https://github.com/ecell/bioimage_workflows.git -P foo=123`
