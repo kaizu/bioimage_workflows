@@ -15,12 +15,16 @@ import scopyon
 import mlflow
 import numpy
 
+"""Set physical parameters."""
+magnification = '360'
+exposure_time = '0.033'
+
+"""Prepare for generating inputs."""
+foo = 123
+rng = numpy.random.RandomState(foo)
+N = 1000
+
 with mlflow.start_run():
-
-    """Set physical parameters."""
-    magnification = '360'
-    exposure_time = '0.033'
-
     config = scopyon.DefaultConfiguration()
     config.update(f"""
     default:
@@ -36,10 +40,6 @@ with mlflow.start_run():
 
     #config.environ.processes = 2
 
-    """Prepare for generating inputs."""
-    foo = 123
-    rng = numpy.random.RandomState(foo)
-    N = 1000
 
     """Collect data."""
 
@@ -78,4 +78,8 @@ with mlflow.start_run():
     mlflow.log_param("N", N)
     mlflow.log_param("magnification", magnification)
     mlflow.log_param("exposure_time", exposure_time)
-    
+
+    mlflow.log_metric("x-axis average", numpy.average(closest[0]))
+    mlflow.log_metric("y-axis average", numpy.average(closest[1]))
+    mlflow.log_metric("x-axis std", numpy.std(closest[0]))
+    mlflow.log_metric("y-axis std", numpy.std(closest[1]))
