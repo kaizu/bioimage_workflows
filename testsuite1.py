@@ -15,6 +15,8 @@ import scopyon
 import mlflow
 import numpy
 import sys
+import os
+import plotly.express as px
 
 """Prepare for generating inputs."""
 seed = int(sys.argv[1]) if len(sys.argv) > 1 else 123
@@ -70,9 +72,12 @@ with mlflow.start_run():
 
     """Show the heat map."""
 
-    # import plotly.express as px
-    # H, xedges, yedges = numpy.histogram2d(x=closest[0], y=closest[1], bins=41, range=[[-2, +2], [-2, +2]])
-    # fig = px.imshow(H, x=(xedges[: -1]+xedges[1: ])*0.5, y=(yedges[: -1]+yedges[1: ])*0.5)
+    H, xedges, yedges = numpy.histogram2d(x=closest[0], y=closest[1], bins=41, range=[[-2, +2], [-2, +2]])
+    fig = px.imshow(H, x=(xedges[: -1]+xedges[1: ])*0.5, y=(yedges[: -1]+yedges[1: ])*0.5)
+    if not os.path.exists("images"):
+        os.mkdir("images")
+    fig.write_image("images/fig1.png")
+    mlflow.log_artifacts("images")
     # fig.show()
     
     mlflow.log_param("seed", seed)
