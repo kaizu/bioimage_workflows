@@ -3,5 +3,7 @@
 ## How to run this workflow
 
 1. Install [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
-1. `pip install mlflow` with Miniconda's pip
-1. `mlflow run https://github.com/ecell/bioimage_workflows.git -P foo=123`
+1. run `pip install mlflow` with Miniconda's pip
+1. run `tmux` to create multiple shells and save the processes
+1. run `mlflow ui -h 0.0.0.0` and create a new tmux pane
+1. move to the another tmux pane and run `mlflow run https://github.com/ecell/bioimage_workflows.git -P foo=111 -P N=1000 -P magnification='360' -P exposure_time='0.033'`
