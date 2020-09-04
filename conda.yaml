@@ -5,6 +5,7 @@ dependencies:
   - python
   - numpy
   - scikit-image
+  - psutil
   - pip
   - pip:
     - git+git://github.com/ecell/scopyon.git@6671e59e18718e599ed6cedb85703bc4a43c9e60
