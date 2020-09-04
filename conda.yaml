@@ -1,14 +1,16 @@
 name: scopyon
 channels:
   - defaults
+  - plotly
 dependencies:
   - python
   - numpy
   - scikit-image
+  - plotly
+  - plotly-orca
   - psutil
   - pip
   - pip:
     - git+git://github.com/ecell/scopyon.git@6671e59e18718e599ed6cedb85703bc4a43c9e60
     - mlflow>=1.0
-    - plotly
     
