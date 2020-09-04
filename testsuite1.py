@@ -14,15 +14,16 @@ This is a test suite.
 import scopyon
 import mlflow
 import numpy
-
-"""Set physical parameters."""
-magnification = '360'
-exposure_time = '0.033'
+import sys
 
 """Prepare for generating inputs."""
-foo = 123
-rng = numpy.random.RandomState(foo)
-N = 1000
+seed = int(sys.argv[1]) if len(sys.argv) > 1 else 123
+rng = numpy.random.RandomState(seed)
+N = int(sys.argv[2]) if len(sys.argv) > 1 else 100
+
+"""Set physical parameters."""
+magnification = str(sys.argv[3]) if len(sys.argv) > 1 else '360'
+exposure_time = str(sys.argv[4]) if len(sys.argv) > 1 else '0.033'
 
 with mlflow.start_run():
     config = scopyon.DefaultConfiguration()
@@ -74,7 +75,7 @@ with mlflow.start_run():
     # fig = px.imshow(H, x=(xedges[: -1]+xedges[1: ])*0.5, y=(yedges[: -1]+yedges[1: ])*0.5)
     # fig.show()
     
-    mlflow.log_param("foo", foo)
+    mlflow.log_param("seed", seed)
     mlflow.log_param("N", N)
     mlflow.log_param("magnification", magnification)
     mlflow.log_param("exposure_time", exposure_time)
