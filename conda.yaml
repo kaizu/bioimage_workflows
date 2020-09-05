@@ -1,13 +1,12 @@
 name: scopyon
 channels:
   - defaults
-  - plotly
 dependencies:
   - python
   - numpy
   - scikit-image
   - plotly
-  - plotly-orca
+  - kaleido
   - psutil
   - pip
   - pip:

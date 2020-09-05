@@ -17,8 +17,6 @@ import numpy
 import sys
 import os
 import plotly.express as px
-import plotly.io as pio
-pio.orca.config.use_xvfb = True
 
 """Prepare for generating inputs."""
 seed = int(sys.argv[1]) if len(sys.argv) > 1 else 123
