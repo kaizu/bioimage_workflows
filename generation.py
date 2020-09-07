@@ -1,84 +1,107 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Test spot detection (Generation)
-# 
-# This is a test suite.
-
 # !pip uninstall -y scopyon
 # !pip install git+https://github.com/ecell/scopyon
-# !pip freeze
+# !pip freeze | grep scopyon
 
 # In[1]:
 
 
-import scopyon
+seed = 123
+num_samples = 3
+exposure_time = 33.0e-3
+interval = 33.0e-3
+num_frames = 100
+Nm = [100, 100, 100]
+Dm = [0.222e-12, 0.032e-12, 0.008e-12]
+transmat = [
+    [0.0, 0.5, 0.0],
+    [0.5, 0.0, 0.2],
+    [0.0, 1.0, 0.0]]
 
-
-# Set physical parameters.
 
 # In[2]:
 
 
-config = scopyon.DefaultConfiguration()
-config.update("""
-default:
-    magnification: 360
-    detector:
-        exposure_time: 0.033
-""")
+nproc = 20
 
 
 # In[3]:
 
 
-pixel_length = config.default.detector.pixel_length / config.default.magnification
-L_2 = config.default.detector.image_size[0] * pixel_length * 0.5
+# !pip install mlflow
 
-
-# Set the number of processes to enable `multiprocessing`:
 
 # In[4]:
 
 
-config.environ.processes = 20
+import numpy
+rng = numpy.random.RandomState(seed)
 
-
-# Prepare for generating inputs.
 
 # In[5]:
 
 
-import numpy
-rng = numpy.random.RandomState(123)
-N = 1000
+import scopyon
 
-
-# Collect data.
 
 # In[6]:
 
 
-from pathlib import Path
-artifacts = Path("./artifacts")
-artifacts.mkdir(parents=True, exist_ok=True)
+config = scopyon.DefaultConfiguration()
+config.default.detector.exposure_time = exposure_time
+pixel_length = config.default.detector.pixel_length / config.default.magnification
+L_2 = config.default.detector.image_size[0] * pixel_length * 0.5
+L_2
 
 
 # In[7]:
 
 
-with open(artifacts / 'config.yaml', 'w') as f:
-    f.write(repr(config))
+config.environ.processes = nproc
 
 
 # In[8]:
 
 
-for i in range(10):
-    inputs = rng.uniform(-L_2, +L_2, size=(N, 2))
-    numpy.save(artifacts / f'inputs{i:03d}.npy', inputs)
-    img, infodict = scopyon.form_image(inputs, config=config, rng=rng, full_output=True)
-    img.save(str(artifacts / f'image{i:03d}.npy'))
-    data = numpy.array([(row[2], row[3]) for row in infodict['true_data'].values()])
-    numpy.save(artifacts / f'data{i:03d}.npy', data)
+timepoints = numpy.linspace(0, interval * num_frames, num_frames + 1)
+ndim = 2
+
+
+# In[9]:
+
+
+import pathlib
+artifacts = pathlib.Path("./artifacts")
+artifacts.mkdir(parents=True, exist_ok=True)
+
+
+# In[10]:
+
+
+config.save(artifacts / 'config.yaml')
+
+
+# In[11]:
+
+
+for i in range(num_samples):
+    ret = scopyon.sample(timepoints, N=Nm, lower=-L_2, upper=+L_2, ndim=ndim, D=Dm, transmat=transmat, rng=rng)
+    inputs = [(t, numpy.hstack((points[:, : ndim], points[:, [ndim + 1]], numpy.ones((points.shape[0], 1), dtype=numpy.float64)))) for t, points in zip(timepoints, ret)]
+    imgs = list(scopyon.generate_images(inputs, num_frames=num_frames, config=config, rng=rng))
+    
+    inputs_ = []
+    for t, data in inputs:
+        inputs_.extend(([t] + list(row) for row in data))
+    inputs_ = numpy.array(inputs_)
+    numpy.save(artifacts / f"inputs{i:03d}.npy", inputs_)
+
+    numpy.save(artifacts / f"images{i:03d}.npy", numpy.array([img.as_array() for img in imgs]))
+
+
+# In[12]:
+
+
+get_ipython().system('ls ./artifacts')
 
