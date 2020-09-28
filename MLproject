@@ -3,11 +3,24 @@ name: scopyon
 conda_env: conda.yaml
 
 entry_points:
+  generation:
+    parameters:
+      seed: {type: int, default: 123}
+      magnification: {type: int, default: 360}
+      exposure_time: {type: float, default: 0.033}
+    command: "python generation.py {seed} {magnification} {exposure_time}"
+  analysis1:
+    parameters:
+      generated_images: path
+    command: "python analysis1.py {generated_images}"
+  analysis2:
+    parameters:
+      analysis1_result: path
+    command: "python analysis2.py {analysis1_result}"
   main:
     parameters:
       seed: {type: int, default: 123}
-      N: {type: int, default: 1000}
-      magnification: {type: str, default: '360'}
-      exposure_time: {type: str, default: '0.033'}
-    command: "python testsuite1.py {seed} {N} {magnification} {exposure_time}"
+      magnification: {type: int, default: 360}
+      exposure_time: {type: float, default: 0.033}
+    command: "python main.py {seed} {magnification} {exposure_time}"
     
