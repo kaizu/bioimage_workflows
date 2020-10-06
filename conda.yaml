@@ -11,7 +11,6 @@ dependencies:
   - papermill
   - plotly
   - psutil
-  - click  
   - pip
   - pip:
     - git+git://github.com/ecell/scopyon.git@99436fbfd34bb684966846eba75b206c2806f69c    
