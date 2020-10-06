@@ -18,7 +18,7 @@ entry_points:
       min_sigma: {type: int, default: 1}
       threshold: {type: float, default: 50.0}
       overlap: {type: float, default: 0.5}
-    command: "papermill ./analysis1.ipynb ./artifacts/analysis1.ipynb -p num_samples {num_samples} -p num_frames {num_frames} -p max_sigma {max_sigma} -p min_sigma {min_sigma} -p threshold {threshold} -p overlap {overlap}"
+    command: "papermill ./analysis1.ipynb ./artifacts/analysis1.ipynb -p generated_data {generated_data} -p num_samples {num_samples} -p num_frames {num_frames} -p max_sigma {max_sigma} -p min_sigma {min_sigma} -p threshold {threshold} -p overlap {overlap}"
   analysis2:
     parameters:
       num_samples: {type: int, default: 1}
