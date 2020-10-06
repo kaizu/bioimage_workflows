@@ -22,7 +22,8 @@ entry_points:
     parameters:
       num_samples: {type: int, default: 1}
       num_frames: {type: int, default: 5}
-    command: "papermill ./analysis2.ipynb ./artifacts/analysis2.ipynb -p num_samples {num_samples} -p num_frames {num_frames}"
+      threshold: {type: float, default: 6.0}
+    command: "papermill ./analysis2.ipynb ./artifacts/analysis2.ipynb -p num_samples {num_samples} -p num_frames {num_frames} -p threshold {threshold}"
   evaluation1:
     parameters:
       num_samples: {type: int, default: 1}
