@@ -11,6 +11,7 @@ entry_points:
     command: "papermill ./generation.ipynb ./artifacts/generation.ipynb -p num_samples {num_samples} -p num_frames {num_frames} -p exposure_time {exposure_time}"
   analysis1:
     parameters:
+      generated_data: {type: string, default: "file:///home/azureuser/mlruns/0/16ad0e8f04bc4d5dbbc667838d26e919/artifacts"}
       num_samples: {type: int, default: 1}
       num_frames: {type: int, default: 5}
       max_sigma: {type: int, default: 4}
