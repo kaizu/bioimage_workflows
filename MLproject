@@ -5,22 +5,26 @@ conda_env: conda.yaml
 entry_points:
   generation:
     parameters:
-      seed: {type: int, default: 123}
-      magnification: {type: int, default: 360}
-      exposure_time: {type: float, default: 0.033}
-    command: "python generation.py {seed} {magnification} {exposure_time}"
+      num_samples: {type: int, default: 1}
+      num_frames: {type: int, default: 5}
+    command: "papermill ./generation.ipynb ./artifacts/generation.ipynb -p num_samples {num_samples} -p num_frames {num_frames}"
   analysis1:
     parameters:
-      generated_images: path
-    command: "python analysis1.py {generated_images}"
+      num_samples: {type: int, default: 1}
+      num_frames: {type: int, default: 5}
+    command: "papermill ./analysis1.ipynb ./artifacts/analysis1.ipynb -p num_samples {num_samples} -p num_frames {num_frames}"
   analysis2:
     parameters:
-      analysis1_result: path
-    command: "python analysis2.py {analysis1_result}"
+      num_samples: {type: int, default: 1}
+      num_frames: {type: int, default: 5}
+    command: "papermill ./analysis2.ipynb ./artifacts/analysis2.ipynb -p num_samples {num_samples} -p num_frames {num_frames}"
+  evaluation1:
+    parameters:
+      num_samples: {type: int, default: 1}
+      num_frames: {type: int, default: 5}
+    command: "papermill ./evaluation1.ipynb ./artifacts/evaluation1.ipynb -p num_samples {num_samples} -p num_frames {num_frames}"
   main:
     parameters:
-      seed: {type: int, default: 123}
-      magnification: {type: int, default: 360}
-      exposure_time: {type: float, default: 0.033}
-    command: "python main.py {seed} {magnification} {exposure_time}"
-    
+      num_samples: {type: int, default: 1}
+      num_frames: {type: int, default: 5}
+    command: "papermill ./main.ipynb ./artifacts/main.ipynb -p num_samples {num_samples} -p num_frames {num_frames}"
