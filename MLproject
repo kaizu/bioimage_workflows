@@ -33,7 +33,4 @@ entry_points:
       max_sigma: {type: int, default: 4}
     command: "papermill ./evaluation1.ipynb ./artifacts/evaluation1.ipynb -p num_samples {num_samples} -p num_frames {num_frames} -p exposure_time {exposure_time} -p max_sigma {max_sigma}"
   main:
-    parameters:
-      num_samples: {type: int, default: 1}
-      num_frames: {type: int, default: 5}
-    command: "papermill ./main.ipynb ./artifacts/main.ipynb -p num_samples {num_samples} -p num_frames {num_frames}"
+    command: "python main.py"
