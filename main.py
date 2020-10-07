@@ -1,5 +1,5 @@
 import mlflow
-mlflow.start_run(run_name="main", nested=False)
+mlflow.start_run(run_name="main", nested=True)
 
 num_samples = 1
 num_frames = 5
