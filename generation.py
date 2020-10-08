@@ -79,7 +79,7 @@ for i in range(num_samples):
     true_data = numpy.array(true_data)
     numpy.save(artifacts / f"true_data{i:03d}.npy", true_data)
 
-!ls ./artifacts
+#!ls ./artifacts
 
 log_artifacts("./artifacts")
 mlflow.end_run()
