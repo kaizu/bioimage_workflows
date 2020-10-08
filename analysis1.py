@@ -61,7 +61,7 @@ for i in range(num_samples):
 
 warnings.resetwarnings()
 
-!ls ./artifacts
+#!ls ./artifacts
 
 log_artifacts("./artifacts")
 mlflow.end_run()
