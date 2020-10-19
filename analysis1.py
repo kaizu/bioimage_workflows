@@ -7,6 +7,11 @@ Original file is located at
     https://colab.research.google.com/github/ecell/bioimage_workflows/blob/master/analysis1.ipynb
 """
 
+import argparse
+parser = argparse.ArgumentParser(description='analysis1 step')
+parser.add_argument('--threshold')
+args = parser.parse_args()
+
 import mlflow
 mlflow.start_run(run_name="analysis1", nested=True)
 
@@ -15,7 +20,7 @@ interval = 33.0e-3
 num_frames = 100
 min_sigma = 1
 max_sigma = 4
-threshold = 50.0
+threshold = float(args.threshold)
 overlap = 0.5
 generated_data = "./artifacts"
 
