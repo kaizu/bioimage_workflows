@@ -29,7 +29,7 @@ for thre in [50.0, 60.0, 70.0, 80.0, 90.0]:
         #       parameters=dict(num_samples=num_samples, num_frames=num_frames)
         #    )
         #exec(open("analysis1.py").read())
-        subprocess.run(["python", "analysis1.py", "--threshold", thre])
+        subprocess.run(["python", "analysis1.py", "--threshold", str(thre)])
 
 #         _ = pm.execute_notebook(
 #          'analysis2.ipynb',
@@ -37,7 +37,7 @@ for thre in [50.0, 60.0, 70.0, 80.0, 90.0]:
 #          parameters=dict(num_samples=num_samples, num_frames=num_frames)
 #         )
         #exec(open("analysis2.py").read())
-        subprocess.run(["python", "analysis2.py", "--threshold", thre])
+        subprocess.run(["python", "analysis2.py", "--threshold", str(thre)])
 
         log_artifacts("./artifacts")
 
@@ -47,4 +47,4 @@ for thre in [50.0, 60.0, 70.0, 80.0, 90.0]:
 #          parameters=dict(num_samples=num_samples)
 #         )
         #exec(open("evaluation1.py").read())
-        subprocess.run(["python", "evaluation1.py", "--threshold", thre])
+        subprocess.run(["python", "evaluation1.py", "--threshold", str(thre)])
