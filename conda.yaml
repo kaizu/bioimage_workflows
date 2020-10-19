@@ -16,3 +16,4 @@ dependencies:
     - git+git://github.com/ecell/scopyon.git@99436fbfd34bb684966846eba75b206c2806f69c    
     - mlflow>=1.0
     - kaleido
+    - azure-storage-blob
