@@ -7,11 +7,16 @@ Original file is located at
     https://colab.research.google.com/github/ecell/bioimage_workflows/blob/master/evaluation1.ipynb
 """
 
+import argparse
+parser = argparse.ArgumentParser(description='evaluation1 step')
+parser.add_argument('--threshold')
+args = parser.parse_args()
+
 import mlflow
 mlflow.start_run(run_name="evaluation1", nested=True)
 
 num_samples = 3
-threshold = 1.0
+threshold = float(args.threshold)
 
 from mlflow import log_metric, log_param, log_artifacts
 log_param("num_samples", num_samples)
