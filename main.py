@@ -2,14 +2,15 @@ import subprocess
 import mlflow
 from mlflow import log_metric, log_param, log_artifacts
 import pathlib
-artifacts = pathlib.Path("./artifacts")
-artifacts.mkdir(parents=True, exist_ok=True)
 
-with mlflow.start_run(nested=True):
-    num_samples = 1
-    num_frames = 5
+for thre in [50.0, 60.0, 70.0, 80.0, 90.0]:
 
-    for thre in [50.0, 60.0, 70.0, 80.0, 90.0]:
+    with mlflow.start_run(nested=True):
+        num_samples = 1
+        num_frames = 5
+        
+        artifacts = pathlib.Path("./artifacts")
+        artifacts.mkdir(parents=True, exist_ok=True)
 
         log_param("num_samples", num_samples)
         log_param("num_frames", num_frames)
