@@ -8,7 +8,7 @@ with mlflow.start_run(nested=True):
     num_samples = 1
     num_frames = 5
 
-    for thre in [50.0 60.0 70.0 80.0 90.0]:
+    for thre in [50.0, 60.0, 70.0, 80.0, 90.0]:
 
         log_param("num_samples", num_samples)
         log_param("num_frames", num_frames)
