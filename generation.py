@@ -11,14 +11,24 @@ Original file is located at
 !pip freeze | grep scopyon
 """
 
-# import mlflow
-# mlflow.start_run(run_name="generation", nested=True)
+import argparse
 
+import mlflow
+mlflow.start_run(run_name="generation", nested=True)
+
+"""Prepare for generating inputs."""
+parser = argparse.ArgumentParser(description='analysis1 step')
+parser.add_argument('--num_samples', type=int, default=1)
+parser.add_argument('--num_frames', type=int, default=5)
+args = parser.parse_args()
+
+num_samples = int(args.num_samples)
+num_frames = int(args.num_frames)
+
+#
 seed = 123
-num_samples = 5
 exposure_time = 33.0e-3
 interval = 33.0e-3
-num_frames = 10
 Nm = [100, 100, 100]
 Dm = [0.222e-12, 0.032e-12, 0.008e-12]
 transmat = [
@@ -33,7 +43,7 @@ log_param("exposure_time", exposure_time)
 log_param("interval", interval)
 log_param("num_frames", num_frames)
 
-nproc = 8
+#nproc = 8
 
 # !pip install mlflow
 
@@ -49,7 +59,7 @@ pixel_length = config.default.detector.pixel_length / config.default.magnificati
 L_2 = config.default.detector.image_size[0] * pixel_length * 0.5
 L_2
 
-config.environ.processes = nproc
+#config.environ.processes = nproc
 
 timepoints = numpy.linspace(0, interval * num_frames, num_frames + 1)
 ndim = 2
@@ -82,4 +92,4 @@ for i in range(num_samples):
 #!ls ./artifacts
 
 log_artifacts("./artifacts")
-# mlflow.end_run()
+mlflow.end_run()

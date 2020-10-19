@@ -4,19 +4,30 @@ conda_env: conda.yaml
 
 entry_points:
   generation:
-    command: "python generation.py"
+    parameters:
+      num_samples: {type: int, default: 1}
+      num_frames: {type: int, default: 5}
+    command: "python generation.py --num_frames {num_frames} --num_samples {num_samples}"
   analysis1:
     parameters:
       threshold: {type: float, default: 50.0}
-    command: "python analysis1.py --threshold {threshold}"
+      num_samples: {type: int, default: 1}
+      num_frames: {type: int, default: 5}
+    command: "python analysis1.py --threshold {threshold} --num_frames {num_frames} --num_samples {num_samples}"
   analysis2:
     parameters:
       threshold: {type: float, default: 50.0}
-    command: "python analysis2.py --threshold {threshold}"
+      num_samples: {type: int, default: 1}
+    command: "python analysis2.py --threshold {threshold} --num_samples {num_samples}"
   evaluation1:
     parameters:
       threshold: {type: float, default: 50.0}
-    command: "python evaluation1.py --threshold {threshold}"
+      num_samples: {type: int, default: 1}
+    command: "python evaluation1.py --threshold {threshold} --num_samples {num_samples}"
   main:
-    command: "python main.py"
+    parameters:
+      num_samples: {type: int, default: 1}
+      num_frames: {type: int, default: 5}
+      threshold: {type: float, default: 50.0}
+    command: "python main.py --threshold {threshold} --num_frames {num_frames} --num_samples {num_samples}"
     

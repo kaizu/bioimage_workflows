@@ -9,15 +9,17 @@ Original file is located at
 
 import argparse
 parser = argparse.ArgumentParser(description='analysis1 step')
-parser.add_argument('--threshold')
+parser.add_argument('--threshold', type=float, default=50.0)
+parser.add_argument('--num_samples', type=int, default=1)
+parser.add_argument('--num_frames', type=int, default=5)
 args = parser.parse_args()
 
-# import mlflow
-# mlflow.start_run(run_name="analysis1", nested=True)
+import mlflow
+mlflow.start_run(run_name="analysis1", nested=True)
 
-num_samples = 3
+num_samples = int(args.num_samples)
+num_frames = int(args.num_frames)
 interval = 33.0e-3
-num_frames = 100
 min_sigma = 1
 max_sigma = 4
 threshold = float(args.threshold)
@@ -33,7 +35,7 @@ log_param("max_sigma", max_sigma)
 log_param("threshold", threshold)
 log_param("overlap", overlap)
 
-nproc = 8
+nproc = 1
 
 import numpy
 timepoints = numpy.linspace(0, interval * num_frames, num_frames + 1)

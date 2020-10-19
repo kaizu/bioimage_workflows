@@ -9,14 +9,14 @@ Original file is located at
 
 import argparse
 parser = argparse.ArgumentParser(description='analysis2 step')
-parser.add_argument('--threshold')
+parser.add_argument('--threshold', type=float, default=50.0)
+parser.add_argument('--num_samples', type=int, default=1)
 args = parser.parse_args()
 
-# import mlflow
-# mlflow.start_run(run_name="analysis2", nested=True)
+import mlflow
+mlflow.start_run(run_name="analysis2", nested=True)
 
-#num_samples = 20
-num_samples = 3
+num_samples = int(args.num_samples)
 interval = 33.0e-3
 seed = 123
 threshold = float(args.threshold)
