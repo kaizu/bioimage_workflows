@@ -12,8 +12,8 @@ parser = argparse.ArgumentParser(description='analysis1 step')
 parser.add_argument('--threshold')
 args = parser.parse_args()
 
-import mlflow
-mlflow.start_run(run_name="analysis1", nested=True)
+# import mlflow
+# mlflow.start_run(run_name="analysis1", nested=True)
 
 num_samples = 3
 interval = 33.0e-3
@@ -69,4 +69,4 @@ warnings.resetwarnings()
 #!ls ./artifacts
 
 log_artifacts("./artifacts")
-mlflow.end_run()
+# mlflow.end_run()
