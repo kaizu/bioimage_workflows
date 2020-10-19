@@ -21,23 +21,22 @@ for thre in [50.0, 60.0, 70.0, 80.0, 90.0]:
         #       str(artifacts / 'generation.ipynb'),
         #       parameters=dict(num_samples=num_samples, num_frames=num_frames)
         #    )
-        exec(open("generation.py").read())
+        generation_run = mlflow.run(".", "generation")
 
         #    _ = pm.execute_notebook(
         #       'analysis1.ipynb',
         #       str(artifacts / 'analysis1.ipynb'),
         #       parameters=dict(num_samples=num_samples, num_frames=num_frames)
         #    )
-        #exec(open("analysis1.py").read())
-        subprocess.run(["python", "analysis1.py", "--threshold", str(thre)])
-
+        analysis1_run = mlflow.run(".", "analysis1", parameters={"threshold":thre})
+        
 #         _ = pm.execute_notebook(
 #          'analysis2.ipynb',
 #          str(artifacts / 'analysis2.ipynb'),
 #          parameters=dict(num_samples=num_samples, num_frames=num_frames)
 #         )
         #exec(open("analysis2.py").read())
-        subprocess.run(["python", "analysis2.py", "--threshold", str(thre)])
+        analysis2_run = mlflow.run(".", "analysis2", parameters={"threshold":thre})
 
         log_artifacts("./artifacts")
 
@@ -47,4 +46,4 @@ for thre in [50.0, 60.0, 70.0, 80.0, 90.0]:
 #          parameters=dict(num_samples=num_samples)
 #         )
         #exec(open("evaluation1.py").read())
-        subprocess.run(["python", "evaluation1.py", "--threshold", str(thre)])
+        evaluation1_run = mlflow.run(".", "evaluation1", parameters={"threshold":thre})
