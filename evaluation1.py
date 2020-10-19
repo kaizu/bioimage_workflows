@@ -12,8 +12,8 @@ parser = argparse.ArgumentParser(description='evaluation1 step')
 parser.add_argument('--threshold')
 args = parser.parse_args()
 
-import mlflow
-mlflow.start_run(run_name="evaluation1", nested=True)
+# import mlflow
+# mlflow.start_run(run_name="evaluation1", nested=True)
 
 num_samples = 3
 threshold = float(args.threshold)
@@ -125,4 +125,4 @@ log_metric("miss_count", miss_count)
 log_metric("missing", missing)
 
 log_artifacts("./artifacts")
-mlflow.end_run()
+# mlflow.end_run()
