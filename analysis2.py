@@ -7,13 +7,18 @@ Original file is located at
     https://colab.research.google.com/github/ecell/bioimage_workflows/blob/master/analysis2.ipynb
 """
 
+import argparse
+parser = argparse.ArgumentParser(description='analysis2 step')
+parser.add_argument('--threshold')
+args = parser.parse_args()
+
 import mlflow
 mlflow.start_run(run_name="analysis2", nested=True)
 
 num_samples = 20
 interval = 33.0e-3
 seed = 123
-threshold = 6.0
+threshold = float(args.threshold)
 
 from mlflow import log_metric, log_param, log_artifacts
 log_param("num_samples", num_samples)
