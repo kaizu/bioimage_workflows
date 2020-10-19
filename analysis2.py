@@ -15,7 +15,8 @@ args = parser.parse_args()
 # import mlflow
 # mlflow.start_run(run_name="analysis2", nested=True)
 
-num_samples = 20
+#num_samples = 20
+num_samples = 3
 interval = 33.0e-3
 seed = 123
 threshold = float(args.threshold)
