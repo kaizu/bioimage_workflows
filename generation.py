@@ -13,21 +13,18 @@ Original file is located at
 
 import argparse
 
-import mlflow
-mlflow.start_run(run_name="generation", nested=True)
-
 """Prepare for generating inputs."""
-parser = argparse.ArgumentParser(description='analysis1 step')
+parser = argparse.ArgumentParser(description='generation step')
 parser.add_argument('--num_samples', type=int, default=1)
 parser.add_argument('--num_frames', type=int, default=5)
+parser.add_argument('--exposure_time', type=float, default=0.033)
 args = parser.parse_args()
 
-num_samples = int(args.num_samples)
-num_frames = int(args.num_frames)
+num_samples = args.num_samples
+num_frames = args.num_frames
+exposure_time = args.exposure_time
 
-#
 seed = 123
-exposure_time = 33.0e-3
 interval = 33.0e-3
 Nm = [100, 100, 100]
 Dm = [0.222e-12, 0.032e-12, 0.008e-12]
@@ -92,4 +89,3 @@ for i in range(num_samples):
 #!ls ./artifacts
 
 log_artifacts("./artifacts")
-mlflow.end_run()
