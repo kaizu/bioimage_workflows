@@ -11,8 +11,8 @@ Original file is located at
 !pip freeze | grep scopyon
 """
 
-import mlflow
-mlflow.start_run(run_name="generation", nested=True)
+# import mlflow
+# mlflow.start_run(run_name="generation", nested=True)
 
 seed = 123
 num_samples = 5
@@ -82,4 +82,4 @@ for i in range(num_samples):
 #!ls ./artifacts
 
 log_artifacts("./artifacts")
-mlflow.end_run()
+# mlflow.end_run()
