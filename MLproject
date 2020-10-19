@@ -7,23 +7,31 @@ entry_points:
     parameters:
       num_samples: {type: int, default: 1}
       num_frames: {type: int, default: 5}
-    command: "python generation.py --num_frames {num_frames} --num_samples {num_samples}"
+      exposure_time: {type: float, default: 0.033}
+    command: "python generation.py --num_samples {num_samples} --num_frames {num_frames} --exposure_time {exposure_time}"
   analysis1:
     parameters:
-      threshold: {type: float, default: 50.0}
+      generated_data: {type: string, default: "./artifacts"}
       num_samples: {type: int, default: 1}
       num_frames: {type: int, default: 5}
-    command: "python analysis1.py --threshold {threshold} --num_frames {num_frames} --num_samples {num_samples}"
+      max_sigma: {type: int, default: 4}
+      min_sigma: {type: int, default: 1}
+      threshold: {type: float, default: 50.0}
+    command: "python analysis1.py --generated_data {generated_data} --num_samples {num_samples} --num_frames {num_frames} --max_sigma {max_sigma} --min_sigma {min_sigma} --threshold {threshold} --overlap {overlap}"
   analysis2:
     parameters:
-      threshold: {type: float, default: 50.0}
       num_samples: {type: int, default: 1}
-    command: "python analysis2.py --threshold {threshold} --num_samples {num_samples}"
+      num_frames: {type: int, default: 5}
+      threshold: {type: float, default: 50.0}
+    command: "python analysis2.py --num_samples {num_samples} --num_frames {num_frames} --threshold {threshold}"
   evaluation1:
     parameters:
       threshold: {type: float, default: 50.0}
       num_samples: {type: int, default: 1}
-    command: "python evaluation1.py --threshold {threshold} --num_samples {num_samples}"
+      num_frames: {type: int, default: 5}
+      exposure_time: {type: float, default: 0.033}
+      max_sigma: {type: int, default: 4}
+    command: "python evaluation1.py --threshold {threshold} --num_samples {num_samples} --num_frames {num_frames} --exposure_time {exposure_time} --max_sigma {max_sigma}"
   main:
     parameters:
       num_samples: {type: int, default: 1}
