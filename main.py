@@ -95,13 +95,13 @@ with mlflow.start_run(run_name="main", nested=True) as active_run:
     generation_run = _get_or_run("generation", {"num_samples":num_samples, "num_frames":num_frames}, git_commit)
     #generation_run = mlflow.run(".", "generation", parameters={"num_samples":num_samples, "num_frames":num_frames})
     # analysis1
-    analysis1_run = _get_or_run("analysis1", {"threshold":threshold, "num_samples":num_samples}, git_commit)
+    analysis1_run = _get_or_run("analysis1", {"threshold":threshold, "num_samples":num_samples, "num_frames":num_frames}, git_commit)
     #analysis1_run = mlflow.run(".", "analysis1", parameters={"threshold":threshold, "num_samples":num_samples})
     # analysis2
-    analysis2_run = _get_or_run("analysis2", {"threshold":threshold, "num_samples":num_samples}, git_commit)
+    analysis2_run = _get_or_run("analysis2", {"threshold":threshold, "num_samples":num_samples, "num_frames":num_frames}, git_commit)
     #analysis2_run = mlflow.run(".", "analysis2", parameters={"threshold":threshold, "num_samples":num_samples})
 
 #     #log_artifacts("./artifacts")
     # evaluation1
-    evaluation1_run = _get_or_run("evaluation1", {"threshold":threshold, "num_samples":num_samples}, git_commit)
+    evaluation1_run = _get_or_run("evaluation1", {"threshold":threshold, "num_samples":num_samples, "num_frames":num_frames}, git_commit)
     #evaluation1_run = mlflow.run(".", "evaluation1", parameters={"threshold":threshold, "num_samples":num_samples})

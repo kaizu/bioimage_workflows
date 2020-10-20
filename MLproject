@@ -17,21 +17,22 @@ entry_points:
       max_sigma: {type: int, default: 4}
       min_sigma: {type: int, default: 1}
       threshold: {type: float, default: 50.0}
-    command: "python analysis1.py --generated_data {generated_data} --num_samples {num_samples} --num_frames {num_frames} --max_sigma {max_sigma} --min_sigma {min_sigma} --threshold {threshold} --overlap {overlap}"
+      overlap: {type: float, default: 0.5}
+      interval: {type: float, default: 33.0e-3}
+    command: "python analysis1.py --generated_data {generated_data} --num_samples {num_samples} --num_frames {num_frames} --max_sigma {max_sigma} --min_sigma {min_sigma} --threshold {threshold} --overlap {overlap} --interval {interval}"
   analysis2:
     parameters:
       num_samples: {type: int, default: 1}
       num_frames: {type: int, default: 5}
       threshold: {type: float, default: 50.0}
-    command: "python analysis2.py --num_samples {num_samples} --num_frames {num_frames} --threshold {threshold}"
+      interval: {type: float, default: 33.0e-3}
+    command: "python analysis2.py --num_samples {num_samples} --num_frames {num_frames} --threshold {threshold} --interval {interval}"
   evaluation1:
     parameters:
       threshold: {type: float, default: 50.0}
       num_samples: {type: int, default: 1}
       num_frames: {type: int, default: 5}
-      exposure_time: {type: float, default: 0.033}
-      max_sigma: {type: int, default: 4}
-    command: "python evaluation1.py --threshold {threshold} --num_samples {num_samples} --num_frames {num_frames} --exposure_time {exposure_time} --max_sigma {max_sigma}"
+    command: "python evaluation1.py --threshold {threshold} --num_samples {num_samples} --num_frames {num_frames}"
   main:
     parameters:
       num_samples: {type: int, default: 1}

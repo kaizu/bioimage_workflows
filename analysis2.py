@@ -11,17 +11,21 @@ import argparse
 parser = argparse.ArgumentParser(description='analysis2 step')
 parser.add_argument('--threshold', type=float, default=50.0)
 parser.add_argument('--num_samples', type=int, default=1)
+parser.add_argument('--num_frames', type=int, default=5)
+parser.add_argument('--interval', type=float, default=33.0e-3)
 args = parser.parse_args()
 
 import mlflow
 mlflow.start_run(run_name="analysis2", nested=True)
 
-num_samples = int(args.num_samples)
-interval = 33.0e-3
+num_samples = args.num_samples
+interval = args.interval
 seed = 123
-threshold = float(args.threshold)
+threshold = args.threshold
+num_frames = args.num_frames
 
 from mlflow import log_metric, log_param, log_artifacts
+log_param("num_frames", num_frames)
 log_param("num_samples", num_samples)
 log_param("interval", interval)
 log_param("seed", seed)
