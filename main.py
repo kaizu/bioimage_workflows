@@ -77,9 +77,9 @@ parser.add_argument('--num_samples', type=int, default=1)
 parser.add_argument('--num_frames', type=int, default=5)
 args = parser.parse_args()
 
-num_samples = int(args.num_samples)
-num_frames = int(args.num_frames)
-threshold = float(args.threshold)
+num_samples = args.num_samples
+num_frames = args.num_frames
+threshold = args.threshold
 
 with mlflow.start_run(run_name="main", nested=True) as active_run:
     # log param
@@ -105,3 +105,4 @@ with mlflow.start_run(run_name="main", nested=True) as active_run:
     # evaluation1
     evaluation1_run = _get_or_run("evaluation1", {"threshold":threshold, "num_samples":num_samples, "num_frames":num_frames}, git_commit)
     #evaluation1_run = mlflow.run(".", "evaluation1", parameters={"threshold":threshold, "num_samples":num_samples})
+    

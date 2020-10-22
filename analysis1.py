@@ -7,7 +7,6 @@ Original file is located at
     https://colab.research.google.com/github/ecell/bioimage_workflows/blob/master/analysis1.ipynb
 """
 
-import mlflow
 import argparse
 
 parser = argparse.ArgumentParser(description='analysis1 step')
@@ -21,6 +20,9 @@ parser.add_argument('--overlap', type=float, default=0.5)
 parser.add_argument('--interval', type=float, default=33.0e-3)
 
 args = parser.parse_args()
+
+import mlflow
+mlflow.start_run(run_name="analysis1", nested=True)
 
 generated_data = args.generated_data
 num_samples = args.num_samples
@@ -76,3 +78,4 @@ warnings.resetwarnings()
 #!ls ./artifacts
 
 log_artifacts("./artifacts")
+mlflow.end_run()

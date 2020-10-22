@@ -11,7 +11,6 @@ Original file is located at
 !pip freeze | grep scopyon
 """
 
-import mlflow
 import argparse
 
 """Prepare for generating inputs."""
@@ -20,6 +19,9 @@ parser.add_argument('--num_samples', type=int, default=1)
 parser.add_argument('--num_frames', type=int, default=5)
 parser.add_argument('--exposure_time', type=float, default=0.033)
 args = parser.parse_args()
+
+import mlflow
+mlflow.start_run(run_name="generation", nested=True)
 
 num_samples = args.num_samples
 num_frames = args.num_frames
@@ -90,3 +92,4 @@ for i in range(num_samples):
 #!ls ./artifacts
 
 log_artifacts("./artifacts")
+mlflow.end_run()
