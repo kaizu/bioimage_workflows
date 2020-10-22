@@ -7,22 +7,22 @@ Original file is located at
     https://colab.research.google.com/github/ecell/bioimage_workflows/blob/master/analysis2.ipynb
 """
 
+import mlflow
 import argparse
+
 parser = argparse.ArgumentParser(description='analysis2 step')
-parser.add_argument('--threshold', type=float, default=50.0)
 parser.add_argument('--num_samples', type=int, default=1)
 parser.add_argument('--num_frames', type=int, default=5)
+parser.add_argument('--threshold', type=float, default=50.0)
 parser.add_argument('--interval', type=float, default=33.0e-3)
 args = parser.parse_args()
 
-import mlflow
-mlflow.start_run(run_name="analysis2", nested=True)
-
 num_samples = args.num_samples
-interval = args.interval
-seed = 123
-threshold = args.threshold
 num_frames = args.num_frames
+threshold = args.threshold
+interval = args.interval
+
+seed = 123
 
 from mlflow import log_metric, log_param, log_artifacts
 log_param("num_frames", num_frames)
@@ -141,4 +141,3 @@ fig.update_traces(opacity=0.75, showlegend=False)
 fig.write_image("artifacts/analysis2_2.png")
 
 log_artifacts("./artifacts")
-# mlflow.end_run()

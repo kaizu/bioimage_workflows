@@ -7,39 +7,38 @@ Original file is located at
     https://colab.research.google.com/github/ecell/bioimage_workflows/blob/master/analysis1.ipynb
 """
 
+import mlflow
 import argparse
+
 parser = argparse.ArgumentParser(description='analysis1 step')
-parser.add_argument('--threshold', type=float, default=50.0)
+parser.add_argument('--generated_data', type=str, default="./artifacts")
 parser.add_argument('--num_samples', type=int, default=1)
 parser.add_argument('--num_frames', type=int, default=5)
-parser.add_argument('--overlap', type=float, default=0.5)
-parser.add_argument('--generated_data', type=str, default="./artifacts")
 parser.add_argument('--min_sigma', type=int, default=1)
 parser.add_argument('--max_sigma', type=int, default=4)
+parser.add_argument('--threshold', type=float, default=50.0)
+parser.add_argument('--overlap', type=float, default=0.5)
 parser.add_argument('--interval', type=float, default=33.0e-3)
 
 args = parser.parse_args()
 
-import mlflow
-mlflow.start_run(run_name="analysis1", nested=True)
-
+generated_data = args.generated_data
 num_samples = args.num_samples
 num_frames = args.num_frames
-interval = args.interval
 min_sigma = args.min_sigma
 max_sigma = args.max_sigma
 threshold = args.threshold
 overlap = args.overlap
-generated_data = args.generated_data
+interval = args.interval
 
 from mlflow import log_metric, log_param, log_artifacts
 log_param("num_frames", num_frames)
 log_param("num_samples", num_samples)
-log_param("interval", interval)
 log_param("min_sigma", min_sigma)
 log_param("max_sigma", max_sigma)
 log_param("threshold", threshold)
 log_param("overlap", overlap)
+log_param("interval", interval)
 
 nproc = 1
 
@@ -77,4 +76,3 @@ warnings.resetwarnings()
 #!ls ./artifacts
 
 log_artifacts("./artifacts")
-# mlflow.end_run()

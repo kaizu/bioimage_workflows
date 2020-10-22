@@ -11,6 +11,7 @@ Original file is located at
 !pip freeze | grep scopyon
 """
 
+import mlflow
 import argparse
 
 """Prepare for generating inputs."""
@@ -36,9 +37,9 @@ transmat = [
 from mlflow import log_metric, log_param, log_artifacts
 log_param("seed", seed)
 log_param("num_samples", num_samples)
+log_param("num_frames", num_frames)
 log_param("exposure_time", exposure_time)
 log_param("interval", interval)
-log_param("num_frames", num_frames)
 
 #nproc = 8
 

@@ -8,23 +8,22 @@ Original file is located at
 """
 
 import argparse
+import mlflow
+
 parser = argparse.ArgumentParser(description='evaluation1 step')
-parser.add_argument('--threshold', type=float, default=50.0)
 parser.add_argument('--num_samples', type=int, default=1)
 parser.add_argument('--num_frames', type=int, default=5)
+parser.add_argument('--threshold', type=float, default=50.0)
 
 args = parser.parse_args()
 
-import mlflow
-mlflow.start_run(run_name="evaluation1", nested=True)
-
-num_samples = int(args.num_samples)
+num_samples = args.num_samples
 num_frames = args.num_frames
-threshold = float(args.threshold)
+threshold = args.threshold
 
 from mlflow import log_metric, log_param, log_artifacts
-log_param("num_frames", num_frames)
 log_param("num_samples", num_samples)
+log_param("num_frames", num_frames)
 log_param("threshold", threshold)
 
 import numpy
@@ -130,4 +129,3 @@ log_metric("miss_count", miss_count)
 log_metric("missing", missing)
 
 log_artifacts("./artifacts")
-# mlflow.end_run()
