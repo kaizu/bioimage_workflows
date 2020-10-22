@@ -106,3 +106,11 @@ with mlflow.start_run(run_name="main", nested=True) as active_run:
     evaluation1_run = _get_or_run("evaluation1", {"threshold":threshold, "num_samples":num_samples, "num_frames":num_frames}, git_commit)
     #evaluation1_run = mlflow.run(".", "evaluation1", parameters={"threshold":threshold, "num_samples":num_samples})
     
+    log_metric("x_mean", evaluation1_run.data.metrics["x_mean"])
+    log_metric("y_mean", evaluation1_run.data.metrics["y_mean"])
+    log_metric("x_std", evaluation1_run.data.metrics["x_std"])
+    log_metric("y_std", evaluation1_run.data.metrics["y_std"])
+    log_metric("r", evaluation1_run.data.metrics["r"])
+    log_metric("miss_count", evaluation1_run.data.metrics["miss_count"])
+    log_metric("missing", evaluation1_run.data.metrics["missing"])
+    
