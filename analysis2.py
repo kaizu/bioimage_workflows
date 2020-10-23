@@ -39,8 +39,6 @@ artifacts.mkdir(parents=True, exist_ok=True)
 generation_artifacts = pathlib.Path(local_file_uri_to_path(generation_run.info.artifact_uri))
 analysis1_artifacts = pathlib.Path(local_file_uri_to_path(analysis1_run.info.artifact_uri))
 
-seed = 123
-
 import scopyon
 config = scopyon.Configuration(filename=generation_artifacts / "config.yaml")
 pixel_length = config.default.detector.pixel_length / config.default.magnification
@@ -96,20 +94,16 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 fig = make_subplots(rows=1, cols=2, subplot_titles=['Square Displacement', 'Intensity'])
-
 fig.add_trace(go.Histogram(x=observation_vec[:, 0], nbinsx=30, histnorm='probability'), row=1, col=1)
-
 fig.add_trace(go.Histogram(x=observation_vec[:, 1], nbinsx=30, histnorm='probability'), row=1, col=2)
-
 fig.update_layout(barmode='overlay')
 fig.update_traces(opacity=0.75, showlegend=False)
-#fig.show()
-fig.write_image(str(artifacts / "analysis2_1.png"))
+# fig.show()
+fig.write_image(str(artifacts / "histogram1.png"))
 
 from scopyon.analysis import PTHMM
 
 rng = numpy.random.RandomState(seed)
-
 model = PTHMM(n_diffusivities=3, n_oligomers=1, n_iter=100, random_state=rng)
 model.fit(observation_vec, lengths)
 
@@ -133,17 +127,14 @@ for i in range(len(lengths)):
     expected_vec[sum(lengths[: i]): sum(lengths[: i + 1])] = X_
 
 fig = make_subplots(rows=1, cols=2, subplot_titles=['Square Displacement', 'Intensity'])
-
 fig.add_trace(go.Histogram(x=observation_vec[:, 0], nbinsx=30, histnorm='probability density'), row=1, col=1)
 fig.add_trace(go.Histogram(x=expected_vec[:, 0], nbinsx=30, histnorm='probability density'), row=1, col=1)
-
 fig.add_trace(go.Histogram(x=observation_vec[:, 1], nbinsx=30, histnorm='probability density'), row=1, col=2)
 fig.add_trace(go.Histogram(x=expected_vec[:, 1], nbinsx=30, histnorm='probability density'), row=1, col=2)
-
 fig.update_layout(barmode='overlay')
 fig.update_traces(opacity=0.75, showlegend=False)
-#fig.show()
-fig.write_image(str(artifacts / "analysis2_2.png"))
+# fig.show()
+fig.write_image(str(artifacts / "histogram2.png"))
 
 #XXX: THERE
 
