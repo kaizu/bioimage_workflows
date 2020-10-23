@@ -3,7 +3,6 @@ import pathlib
 
 import mlflow
 from mlflow import log_metric, log_param, log_artifacts
-# from mlflow.utils.file_utils import local_file_uri_to_path
 
 entrypoint = "analysis1"
 parser = argparse.ArgumentParser(description='analysis1 step')
@@ -39,7 +38,6 @@ artifacts.mkdir(parents=True, exist_ok=True)
 
 #XXX: HERE
 
-# generation_artifacts = pathlib.Path(local_file_uri_to_path(generation_run.info.artifact_uri))
 import numpy
 timepoints = numpy.linspace(0, interval * num_frames, num_frames + 1)
 

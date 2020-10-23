@@ -3,7 +3,6 @@ import pathlib
 
 import mlflow
 from mlflow import log_metric, log_param, log_artifacts
-from mlflow.utils.file_utils import local_file_uri_to_path
 
 entrypoint = "analysis2"
 parser = argparse.ArgumentParser(description='analysis2 step')
@@ -24,20 +23,20 @@ max_distance = args.max_distance
 for key, value in vars(args).items():
     log_param(key, value)
 
-generation_run = mlflow.tracking.MlflowClient().get_run(generation)
-analysis1_run = mlflow.tracking.MlflowClient().get_run(analysis1)
+client = mlflow.tracking.MlflowClient()
+generation_run = client.get_run(generation)
+analysis1_run = client.get_run(analysis1)
 num_samples = int(generation_run.data.params["num_samples"])
 num_frames = int(generation_run.data.params["num_frames"])
 interval = float(generation_run.data.params["interval"])
+generation_artifacts = pathlib.Path(client.download_artifacts(generation, "."))
+analysis1_artifacts = pathlib.Path(client.download_artifacts(analysis1, "."))
 
 import tempfile
 artifacts = pathlib.Path(tempfile.mkdtemp()) / "artifacts"
 artifacts.mkdir(parents=True, exist_ok=True)
 
 #XXX: HERE
-
-generation_artifacts = pathlib.Path(local_file_uri_to_path(generation_run.info.artifact_uri))
-analysis1_artifacts = pathlib.Path(local_file_uri_to_path(analysis1_run.info.artifact_uri))
 
 import scopyon
 config = scopyon.Configuration(filename=generation_artifacts / "config.yaml")

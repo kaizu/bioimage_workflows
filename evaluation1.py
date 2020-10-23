@@ -3,7 +3,6 @@ import pathlib
 
 import mlflow
 from mlflow import log_metric, log_param, log_artifacts
-from mlflow.utils.file_utils import local_file_uri_to_path
 
 entrypoint = "evaluation1"
 parser = argparse.ArgumentParser(description='evaluation1 step')
@@ -24,20 +23,20 @@ max_distance = args.max_distance
 for key, value in vars(args).items():
     log_param(key, value)
 
-generation_run = mlflow.tracking.MlflowClient().get_run(generation)
+client = mlflow.tracking.MlflowClient()
+generation_run = client.get_run(generation)
 num_samples = int(generation_run.data.params["num_samples"])
-analysis1_run = mlflow.tracking.MlflowClient().get_run(analysis1)
-# analysis2_run = mlflow.tracking.MlflowClient().get_run(analysis2)
+analysis1_run = client.get_run(analysis1)
+# analysis2_run = client.get_run(analysis2)
+generation_artifacts = pathlib.Path(client.download_artifacts(generation, "."))
+analysis1_artifacts = pathlib.Path(client.download_artifacts(analysis1, "."))
+# analysis2_artifacts = pathlib.Path(client.download_artifacts(analysis2, "."))
 
 import tempfile
 artifacts = pathlib.Path(tempfile.mkdtemp()) / "artifacts"
 artifacts.mkdir(parents=True, exist_ok=True)
 
 #XXX: HERE
-
-generation_artifacts = pathlib.Path(local_file_uri_to_path(generation_run.info.artifact_uri))
-analysis1_artifacts = pathlib.Path(local_file_uri_to_path(analysis1_run.info.artifact_uri))
-# analysis2_artifacts = pathlib.Path(local_file_uri_to_path(analysis2_run.info.artifact_uri))
 
 import numpy
 
