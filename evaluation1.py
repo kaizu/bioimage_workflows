@@ -17,7 +17,7 @@ parser.add_argument('--threshold', type=float, default=50.0)
 args = parser.parse_args()
 
 import mlflow
-mlflow.start_run(run_name="evaluation1", nested=True)
+mlflow.start_run(run_name="evaluation1")
 
 num_samples = args.num_samples
 num_frames = args.num_frames

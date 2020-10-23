@@ -22,7 +22,7 @@ parser.add_argument('--interval', type=float, default=33.0e-3)
 args = parser.parse_args()
 
 import mlflow
-mlflow.start_run(run_name="analysis1", nested=True)
+mlflow.start_run(run_name="analysis1")
 
 generated_data = args.generated_data
 num_samples = args.num_samples

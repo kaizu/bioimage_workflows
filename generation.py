@@ -21,7 +21,7 @@ parser.add_argument('--exposure_time', type=float, default=0.033)
 args = parser.parse_args()
 
 import mlflow
-mlflow.start_run(run_name="generation", nested=True)
+mlflow.start_run(run_name="generation")
 
 num_samples = args.num_samples
 num_frames = args.num_frames
