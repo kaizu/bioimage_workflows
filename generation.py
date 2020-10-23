@@ -1,7 +1,9 @@
+import argparse
+
 import mlflow
 from mlflow import log_metric, log_param, log_artifacts
 
-import argparse
+entrypoint = "generation"
 parser = argparse.ArgumentParser(description='generation step')
 parser.add_argument('--seed', type=int, default=123)
 parser.add_argument('--interval', type=float, default=33e-3)
@@ -11,7 +13,7 @@ parser.add_argument('--exposure_time', type=float, default=0.033)
 args = parser.parse_args()
 
 active_run = mlflow.start_run()
-mlflow.set_tag("mlflow.runName", "generation")
+mlflow.set_tag("mlflow.runName", entrypoint)
 
 seed = args.seed
 interval = args.interval

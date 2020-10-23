@@ -6,6 +6,7 @@ from mlflow.utils import mlflow_tags
 from mlflow import log_metric, log_param, log_artifacts
 from mlflow_utils import _get_or_run
 
+entrypoint = "main"
 parser = argparse.ArgumentParser(description='analysis1 step')
 parser.add_argument('--threshold', type=float, default=50.0)
 parser.add_argument('--min_sigma', type=int, default=1)
@@ -19,7 +20,7 @@ num_samples = args.num_samples
 num_frames = args.num_frames
 
 with mlflow.start_run(nested=True) as active_run:
-    mlflow.set_tag("mlflow.runName", "main")
+    mlflow.set_tag("mlflow.runName", entrypoint)
     for key, value in vars(args).items():
         log_param(key, value)
 
