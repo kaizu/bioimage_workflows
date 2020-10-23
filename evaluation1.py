@@ -10,6 +10,7 @@ parser = argparse.ArgumentParser(description='evaluation1 step')
 parser.add_argument('--generation', type=str, default="")
 parser.add_argument('--analysis1', type=str, default="")
 # parser.add_argument('--analysis2', type=str, default="")
+parser.add_argument('--threshold', type=float, default=50.0)
 args = parser.parse_args()
 
 active_run = mlflow.start_run()
@@ -18,11 +19,13 @@ mlflow.set_tag("mlflow.runName", entrypoint)
 generation = args.generation
 analysis1 = args.analysis1
 # analysis2 = args.analysis2
+threshold = args.threshold
 
 for key, value in vars(args).items():
     log_param(key, value)
 
 generation_run = mlflow.tracking.MlflowClient().get_run(generation)
+num_samples = int(generation_run.data.params["num_samples"])
 analysis1_run = mlflow.tracking.MlflowClient().get_run(analysis1)
 # analysis2_run = mlflow.tracking.MlflowClient().get_run(analysis2)
 
