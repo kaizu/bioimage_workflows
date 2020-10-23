@@ -28,7 +28,7 @@ with mlflow.start_run(nested=True) as active_run:
 
     generation_run = _get_or_run("generation", {"num_samples": num_samples, "num_frames": num_frames}, git_commit)
     analysis1_run = _get_or_run("analysis1", {"generation": generation_run.info.run_id, "threshold": threshold, "min_sigma": min_sigma}, git_commit)
-    analysis2_run = _get_or_run("analysis2", {"generation": generation_run.info.run_id, "analysis1": analysis1_run.info.run_id, "threshold":threshold}, git_commit)
+    analysis2_run = _get_or_run("analysis2", {"generation": generation_run.info.run_id, "analysis1": analysis1_run.info.run_id}, git_commit)
     evaluation1_run = _get_or_run("evaluation1", {"generation": generation_run.info.run_id, "analysis1": analysis1_run.info.run_id}, git_commit)
 
     for run_obj in (generation_run, analysis1_run, analysis2_run, evaluation1_run):
