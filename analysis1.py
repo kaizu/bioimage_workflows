@@ -58,7 +58,7 @@ for i in range(num_samples):
     imgs = [scopyon.Image(data) for data in numpy.load(generation_artifacts / f"images{i:03d}.npy")]
     spots = [
         scopyon.analysis.spot_detection(
-            img.as_array(), processes=nproc,
+            img.as_array(),
             min_sigma=min_sigma, max_sigma=max_sigma, threshold=threshold, overlap=overlap)
         for img in imgs]
 
