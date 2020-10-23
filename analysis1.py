@@ -69,8 +69,8 @@ for i in range(num_samples):
     numpy.save(artifacts / f"spots{i:03d}.npy", spots_)
 
     r = 6
-    shapes += [dict(x=spot[0], y=spot[1], sigma=r, color='red')
-                    for spot in spots[0]]
+    shapes = [dict(x=spot[0], y=spot[1], sigma=r, color='red')
+              for spot in spots[0]]
     imgs[0].save(artifacts / f"spots{i:03d}_000.png", shapes=shapes)
 
     print("{} spots are detected in {} frames.".format(len(spots_), len(imgs)))
