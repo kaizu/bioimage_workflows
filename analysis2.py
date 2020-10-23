@@ -10,6 +10,7 @@ Original file is located at
 import argparse
 
 parser = argparse.ArgumentParser(description='analysis2 step')
+parser.add_argument('--generated_data', type=str, default="/tmp/foobar")
 parser.add_argument('--num_samples', type=int, default=1)
 parser.add_argument('--num_frames', type=int, default=5)
 parser.add_argument('--threshold', type=float, default=50.0)
@@ -19,6 +20,7 @@ args = parser.parse_args()
 import mlflow
 mlflow.start_run(run_name="analysis2")
 
+generated_data = args.generated_data
 num_samples = args.num_samples
 num_frames = args.num_frames
 threshold = args.threshold
@@ -34,8 +36,8 @@ log_param("seed", seed)
 log_param("threshold", threshold)
 
 import pathlib
-inputpath = pathlib.Path("./artifacts")
-artifacts = pathlib.Path("./artifacts")
+inputpath = pathlib.Path("generated_data")
+artifacts = pathlib.Path("generated_data")
 artifacts.mkdir(parents=True, exist_ok=True)
 
 import scopyon
@@ -101,7 +103,7 @@ fig.add_trace(go.Histogram(x=observation_vec[:, 1], nbinsx=30, histnorm='probabi
 fig.update_layout(barmode='overlay')
 fig.update_traces(opacity=0.75, showlegend=False)
 #fig.show()
-fig.write_image("artifacts/analysis2_1.png")
+fig.write_image(generated_data + "/analysis2_1.png")
 
 from scopyon.analysis import PTHMM
 
@@ -140,7 +142,8 @@ fig.add_trace(go.Histogram(x=expected_vec[:, 1], nbinsx=30, histnorm='probabilit
 fig.update_layout(barmode='overlay')
 fig.update_traces(opacity=0.75, showlegend=False)
 #fig.show()
-fig.write_image("artifacts/analysis2_2.png")
+fig.write_image(generated_data + "/analysis2_2.png")
 
-log_artifacts("./artifacts")
+#log_artifacts("./artifacts")
+log_artifacts(generated_data)
 mlflow.end_run()

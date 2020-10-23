@@ -10,6 +10,7 @@ Original file is located at
 import argparse
 
 parser = argparse.ArgumentParser(description='evaluation1 step')
+parser.add_argument('--generated_data', type=str, default="/tmp/foobar")
 parser.add_argument('--num_samples', type=int, default=1)
 parser.add_argument('--num_frames', type=int, default=5)
 parser.add_argument('--threshold', type=float, default=50.0)
@@ -19,11 +20,13 @@ args = parser.parse_args()
 import mlflow
 mlflow.start_run(run_name="evaluation1")
 
+generated_data = args.generated_data
 num_samples = args.num_samples
 num_frames = args.num_frames
 threshold = args.threshold
 
 from mlflow import log_metric, log_param, log_artifacts
+log_param("generated_data", generated_data)
 log_param("num_samples", num_samples)
 log_param("num_frames", num_frames)
 log_param("threshold", threshold)
@@ -31,7 +34,7 @@ log_param("threshold", threshold)
 import numpy
 
 import pathlib
-inputpath = pathlib.Path("./artifacts")
+inputpath = pathlib.Path(generated_data)
 # artifacts = pathlib.Path("./artifacts")
 # artifacts.mkdir(parents=True, exist_ok=True)
 
@@ -109,7 +112,7 @@ w = h = 1
 H, xedges, yedges = numpy.histogram2d(x=closest[0], y=closest[1], bins=41, range=[[-w, +w], [-h, +h]])
 fig = px.imshow(H, x=(xedges[: -1]+xedges[1: ])*0.5, y=(yedges[: -1]+yedges[1: ])*0.5)
 #fig.show()
-fig.write_image("artifacts/evaluation1_1.png")
+fig.write_image(generated_data + "/evaluation1_1.png")
 
 r = 6
 idx = 0
@@ -130,5 +133,6 @@ log_metric("r", r)
 log_metric("miss_count", miss_count)
 log_metric("missing", missing)
 
-log_artifacts("./artifacts")
+#log_artifacts("./artifacts")
+log_artifacts(generated_data)
 mlflow.end_run()
