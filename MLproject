@@ -32,5 +32,5 @@ entry_points:
     parameters:
       num_samples: {type: int, default: 1}
       num_frames: {type: int, default: 5}
-      max_distance: {type: float, default: 50.0}
-    command: "python main.py --num_samples {num_samples} --num_frames {num_frames} --max_distance {max_distance}"
+      threshold: {type: float, default: 50.0}
+    command: "python main.py --num_samples {num_samples} --num_frames {num_frames} --threshold {threshold}"
