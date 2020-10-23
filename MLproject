@@ -11,7 +11,7 @@ entry_points:
     command: "python generation.py --num_samples {num_samples} --num_frames {num_frames} --exposure_time {exposure_time}"
   analysis1:
     parameters:
-      generated_data: {type: string, default: "./artifacts"}
+      generated_data: {type: string, default: "./foobar"}
       num_samples: {type: int, default: 1}
       num_frames: {type: int, default: 5}
       max_sigma: {type: int, default: 4}

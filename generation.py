@@ -21,7 +21,7 @@ parser.add_argument('--exposure_time', type=float, default=0.033)
 args = parser.parse_args()
 
 import mlflow
-mlflow.start_run(run_name="generation")
+foo = mlflow.start_run(run_name="generation")
 
 num_samples = args.num_samples
 num_frames = args.num_frames
@@ -65,8 +65,11 @@ timepoints = numpy.linspace(0, interval * num_frames, num_frames + 1)
 ndim = 2
 
 import pathlib
-artifacts = pathlib.Path("./artifacts")
+runid = foo.info.run_id
+artifactsPath = "./" + str(runid) + "/artifacts"
+artifacts = pathlib.Path(artifactsPath)
 artifacts.mkdir(parents=True, exist_ok=True)
+log_param("artifactsPath", artifactsPath)
 
 config.save(artifacts / 'config.yaml')
 
@@ -91,5 +94,5 @@ for i in range(num_samples):
 
 #!ls ./artifacts
 
-log_artifacts("./artifacts")
+log_artifacts(artifactsPath)
 mlflow.end_run()

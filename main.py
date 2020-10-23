@@ -90,15 +90,16 @@ with mlflow.start_run(run_name="main", nested=True) as active_run:
     log_param("num_samples", num_samples)
     log_param("num_frames", num_frames)
     # artifacts
-    artifacts = pathlib.Path("./artifacts")
-    artifacts.mkdir(parents=True, exist_ok=True)
+    #artifacts = pathlib.Path("./artifacts")
+    #artifacts.mkdir(parents=True, exist_ok=True)
     # check git version
     git_commit = active_run.data.tags.get(mlflow_tags.MLFLOW_GIT_COMMIT)
     # generation
     generation_run = _get_or_run("generation", {"num_samples":num_samples, "num_frames":num_frames}, git_commit)
+    artifactsPath = generation_run.data.params["artifactsPath"]
     #generation_run = mlflow.run(".", "generation", parameters={"num_samples":num_samples, "num_frames":num_frames})
     # analysis1
-    analysis1_run = _get_or_run("analysis1", {"threshold":threshold, "min_sigma":min_sigma, "num_samples":num_samples, "num_frames":num_frames}, git_commit)
+    analysis1_run = _get_or_run("analysis1", {"generated_data":artifactsPath, "threshold":threshold, "min_sigma":min_sigma, "num_samples":num_samples, "num_frames":num_frames}, git_commit)
     #analysis1_run = mlflow.run(".", "analysis1", parameters={"threshold":threshold, "num_samples":num_samples})
     # analysis2
     analysis2_run = _get_or_run("analysis2", {"threshold":threshold, "num_samples":num_samples, "num_frames":num_frames}, git_commit)
