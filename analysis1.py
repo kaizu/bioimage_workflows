@@ -39,39 +39,38 @@ artifacts.mkdir(parents=True, exist_ok=True)
 #XXX: HERE
 
 generation_artifacts = local_file_uri_to_path(generation_run.info.artifact_uri)
-print(generation_artifacts)
 
 # nproc = 1
-# 
-# import numpy
-# timepoints = numpy.linspace(0, interval * num_frames, num_frames + 1)
-# 
+
+import numpy
+timepoints = numpy.linspace(0, interval * num_frames, num_frames + 1)
+
 # inputpath = pathlib.Path(generated_data.replace("file://", ""))
 # artifacts = pathlib.Path(generated_data.replace("file://", ""))
 # artifacts.mkdir(parents=True, exist_ok=True)
-# 
-# import scopyon
-# 
-# import warnings
-# warnings.simplefilter('ignore', RuntimeWarning)
-# 
-# for i in range(num_samples):
-#     imgs = [scopyon.Image(data) for data in numpy.load(inputpath / f"images{i:03d}.npy")]
-#     spots = [
-#         scopyon.analysis.spot_detection(
-#             img.as_array(), processes=nproc,
-#             min_sigma=min_sigma, max_sigma=max_sigma, threshold=threshold, overlap=overlap)
-#         for img in imgs]
-# 
-#     spots_ = []
-#     for t, data in zip(timepoints, spots):
-#         spots_.extend(([t] + list(row) for row in data))
-#     spots_ = numpy.array(spots_)
-#     numpy.save(artifacts / f"spots{i:03d}.npy", spots_)
-#
-#     print("{} spots are detected in {} frames.".format(len(spots_), len(imgs)))
-# 
-# warnings.resetwarnings()
+
+import scopyon
+
+import warnings
+warnings.simplefilter('ignore', RuntimeWarning)
+
+for i in range(num_samples):
+    imgs = [scopyon.Image(data) for data in numpy.load(generation_artifacts / f"images{i:03d}.npy")]
+    spots = [
+        scopyon.analysis.spot_detection(
+            img.as_array(), processes=nproc,
+            min_sigma=min_sigma, max_sigma=max_sigma, threshold=threshold, overlap=overlap)
+        for img in imgs]
+
+    spots_ = []
+    for t, data in zip(timepoints, spots):
+        spots_.extend(([t] + list(row) for row in data))
+    spots_ = numpy.array(spots_)
+    numpy.save(artifacts / f"spots{i:03d}.npy", spots_)
+
+    print("{} spots are detected in {} frames.".format(len(spots_), len(imgs)))
+
+warnings.resetwarnings()
 
 #XXX: THERE
 
