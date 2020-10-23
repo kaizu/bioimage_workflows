@@ -12,7 +12,6 @@ parser.add_argument('--min_sigma', type=int, default=1)
 parser.add_argument('--max_sigma', type=int, default=4)
 parser.add_argument('--threshold', type=float, default=50.0)
 parser.add_argument('--overlap', type=float, default=0.5)
-
 args = parser.parse_args()
 
 active_run = mlflow.start_run()

@@ -26,28 +26,15 @@ with mlflow.start_run(nested=True) as active_run:
     for key, value in vars(args).items():
         log_param(key, value)
 
-    # artifacts
-    #artifacts = pathlib.Path("./artifacts")
-    #artifacts.mkdir(parents=True, exist_ok=True)
-    # check git version
-    # generation
     generation_run = _get_or_run("generation", {"num_samples": num_samples, "num_frames": num_frames}, git_commit)
-    # artifactsPath = generation_run.data.params["artifactsPath"]
-    # #generation_run = mlflow.run(".", "generation", parameters={"num_samples":num_samples, "num_frames":num_frames})
-    # # analysis1
     analysis1_run = _get_or_run("analysis1", {"generation": generation_run.info.run_id, "threshold": threshold, "min_sigma": min_sigma}, git_commit)
-    # #analysis1_run = mlflow.run(".", "analysis1", parameters={"threshold":threshold, "num_samples":num_samples})
-    # # analysis2
-    # analysis2_run = _get_or_run("analysis2", {"threshold":threshold, "num_samples":num_samples, "num_frames":num_frames}, git_commit)
-    # #analysis2_run = mlflow.run(".", "analysis2", parameters={"threshold":threshold, "num_samples":num_samples})
-
-#   #   #log_artifacts("./artifacts")
+    analysis2_run = _get_or_run("analysis2", {"generation": generation_run.info.run_id, "analysis1": analysis1_run.info.run_id, "threshold":threshold}, git_commit)
     # # evaluation1
     # evaluation1_run = _get_or_run("evaluation1", {"threshold":threshold, "num_samples":num_samples, "num_frames":num_frames}, git_commit)
     # #evaluation1_run = mlflow.run(".", "evaluation1", parameters={"threshold":threshold, "num_samples":num_samples})
     # 
 
-    for run_obj in (generation_run, analysis1_run):
+    for run_obj in (generation_run, analysis1_run, analysis2_run):
         for key, value in run_obj.data.metrics.items():
             log_metric(key, value)
     # log_metric("x_mean", float(evaluation1_run.data.metrics["x_mean"]))

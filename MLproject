@@ -19,12 +19,10 @@ entry_points:
     command: "python analysis1.py --generation {generation} --min_sigma {min_sigma} --max_sigma {max_sigma} --threshold {threshold} --overlap {overlap}"
   analysis2:
     parameters:
-      generated_data: {type: string, default: "/tmp/foobar"}
-      num_samples: {type: int, default: 1}
-      num_frames: {type: int, default: 5}
+      generation: {type: string, default: ""}
+      analysis1: {type: string, default: ""}
       threshold: {type: float, default: 50.0}
-      interval: {type: float, default: 33.0e-3}
-    command: "python analysis2.py --generated_data {generated_data} --num_samples {num_samples} --num_frames {num_frames} --threshold {threshold} --interval {interval}"
+    command: "python analysis2.py --generation {generation} --analysis1 {analysis1} --threshold {threshold}"
   evaluation1:
     parameters:
       generated_data: {type: string, default: "/tmp/foobar"}
