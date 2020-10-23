@@ -44,7 +44,7 @@ with mlflow.start_run(run_name="main", nested=True) as active_run:
     # #evaluation1_run = mlflow.run(".", "evaluation1", parameters={"threshold":threshold, "num_samples":num_samples})
     # 
 
-    print("runName =", active_run.runName)
+    mlflow.set_tag("mlflow.runName", "run_name")
     for key, value in generation_run.data.metrics.items():
         log_metric(key, value)
     # log_metric("x_mean", float(evaluation1_run.data.metrics["x_mean"]))
