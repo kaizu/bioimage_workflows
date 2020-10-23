@@ -31,6 +31,7 @@ generation_run = client.get_run(generation)
 num_samples = int(generation_run.data.params["num_samples"])
 num_frames = int(generation_run.data.params["num_frames"])
 interval = float(generation_run.data.params["interval"])
+client.download_artifacts(generation, ".")
 
 import tempfile
 artifacts = pathlib.Path(tempfile.mkdtemp()) / "artifacts"
@@ -49,7 +50,6 @@ warnings.simplefilter('ignore', RuntimeWarning)
 
 for i in range(num_samples):
     # imgs = [scopyon.Image(data) for data in numpy.load(generation_artifacts / f"images{i:03d}.npy")]
-    client.download_artifacts(generation, f"images{i:03d}.npy")
     imgs = [scopyon.Image(data) for data in numpy.load(f"./images{i:03d}.npy")]
     spots = [
         scopyon.analysis.spot_detection(
