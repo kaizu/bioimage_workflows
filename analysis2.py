@@ -30,8 +30,8 @@ num_samples = int(generation_run.data.params["num_samples"])
 num_frames = int(generation_run.data.params["num_frames"])
 interval = float(generation_run.data.params["interval"])
 
-runid = active_run.info.run_id
-artifacts = pathlib.Path("./artifacts/" + str(runid))
+import tempfile
+artifacts = pathlib.Path(tempfile.mkdtemp()) / "artifacts"
 artifacts.mkdir(parents=True, exist_ok=True)
 
 #XXX: HERE

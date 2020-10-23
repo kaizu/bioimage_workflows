@@ -32,8 +32,8 @@ transmat = [
 for key, value in vars(args).items():
     log_param(key, value)
 
-runid = active_run.info.run_id
-artifacts = pathlib.Path("./artifacts/" + str(runid))
+import tempfile
+artifacts = pathlib.Path(tempfile.mkdtemp()) / "artifacts"
 artifacts.mkdir(parents=True, exist_ok=True)
 
 #XXX: HERE

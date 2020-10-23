@@ -29,8 +29,8 @@ num_samples = int(generation_run.data.params["num_samples"])
 analysis1_run = mlflow.tracking.MlflowClient().get_run(analysis1)
 # analysis2_run = mlflow.tracking.MlflowClient().get_run(analysis2)
 
-runid = active_run.info.run_id
-artifacts = pathlib.Path("./artifacts/" + str(runid))
+import tempfile
+artifacts = pathlib.Path(tempfile.mkdtemp()) / "artifacts"
 artifacts.mkdir(parents=True, exist_ok=True)
 
 #XXX: HERE
