@@ -66,7 +66,7 @@ ndim = 2
 
 import pathlib
 runid = foo.info.run_id
-artifactsPath = "./" + str(runid) + "/artifacts"
+artifactsPath = "/tmp/" + str(runid) + "/artifacts"
 artifacts = pathlib.Path(artifactsPath)
 artifacts.mkdir(parents=True, exist_ok=True)
 log_param("artifactsPath", artifactsPath)
