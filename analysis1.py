@@ -30,6 +30,12 @@ num_samples = generation_run.data.params["num_samples"]
 num_frames = generation_run.data.params["num_frames"]
 interval = generation_run.data.params["interval"]
 
+runid = active_run.info.run_id
+artifacts = pathlib.Path("./artifacts/" + str(runid))
+artifacts.mkdir(parents=True, exist_ok=True)
+
+#XXX: HERE
+
 # nproc = 1
 # 
 # import numpy
@@ -58,14 +64,12 @@ interval = generation_run.data.params["interval"]
 #         spots_.extend(([t] + list(row) for row in data))
 #     spots_ = numpy.array(spots_)
 #     numpy.save(artifacts / f"spots{i:03d}.npy", spots_)
-#     
+#
 #     print("{} spots are detected in {} frames.".format(len(spots_), len(imgs)))
 # 
 # warnings.resetwarnings()
-# 
-# #!ls ./artifacts
-# 
-# #log_artifacts("./artifacts")
-# log_artifacts(generated_data)
 
+#XXX: THERE
+
+log_artifacts(str(artifacts))
 mlflow.end_run()

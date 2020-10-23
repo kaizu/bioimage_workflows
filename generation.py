@@ -57,8 +57,6 @@ L_2
 timepoints = numpy.linspace(0, interval * num_frames, num_frames + 1)
 ndim = 2
 
-# log_param("artifactsPath", artifactsPath)
-
 config.save(artifacts / 'config.yaml')
 
 for i in range(num_samples):
@@ -73,14 +71,13 @@ for i in range(num_samples):
     numpy.save(artifacts / f"inputs{i:03d}.npy", inputs_)
 
     numpy.save(artifacts / f"images{i:03d}.npy", numpy.array([img.as_array() for img, infodict in ret]))
+    ret[0][0].save(artifacts / f"image{i:03d}_000.png")
 
     true_data = []
     for t, (_, infodict) in zip(timepoints, ret):
         true_data.extend([t, key] + list(value) for key, value in infodict['true_data'].items())
     true_data = numpy.array(true_data)
     numpy.save(artifacts / f"true_data{i:03d}.npy", true_data)
-
-#!ls ./artifacts
 
 #XXX: THERE
 
