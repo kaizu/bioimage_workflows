@@ -110,10 +110,10 @@ log_metric("y_mean", y_mean)
 log_metric("x_std", x_std)
 log_metric("y_std", y_std)
 
-import plotly.express as px
-w = h = 1
-H, xedges, yedges = numpy.histogram2d(x=closest[0], y=closest[1], bins=41, range=[[-w, +w], [-h, +h]])
-fig = px.imshow(H, x=(xedges[: -1]+xedges[1: ])*0.5, y=(yedges[: -1]+yedges[1: ])*0.5)
+# import plotly.express as px
+# w = h = 1
+# H, xedges, yedges = numpy.histogram2d(x=closest[0], y=closest[1], bins=41, range=[[-w, +w], [-h, +h]])
+# fig = px.imshow(H, x=(xedges[: -1]+xedges[1: ])*0.5, y=(yedges[: -1]+yedges[1: ])*0.5)
 # fig.show()
 # fig.write_image(str(artifacts / "heatmap1.png"))
 

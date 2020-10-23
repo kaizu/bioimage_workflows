@@ -34,10 +34,3 @@ with mlflow.start_run(nested=True) as active_run:
     for run_obj in (generation_run, analysis1_run, analysis2_run, evaluation1_run):
         for key, value in run_obj.data.metrics.items():
             log_metric(key, value)
-    # log_metric("x_mean", float(evaluation1_run.data.metrics["x_mean"]))
-    # log_metric("y_mean", float(evaluation1_run.data.metrics["y_mean"]))
-    # log_metric("x_std", float(evaluation1_run.data.metrics["x_std"]))
-    # log_metric("y_std", float(evaluation1_run.data.metrics["y_std"]))
-    # log_metric("r", float(evaluation1_run.data.metrics["r"]))
-    # log_metric("miss_count", float(evaluation1_run.data.metrics["miss_count"]))
-    # log_metric("missing", float(evaluation1_run.data.metrics["missing"]))
