@@ -73,17 +73,20 @@ def _get_or_run(entrypoint, parameters, git_commit, use_cache=True):
 """Prepare for generating inputs."""
 parser = argparse.ArgumentParser(description='analysis1 step')
 parser.add_argument('--threshold', type=float, default=50.0)
+parser.add_argument('--min_sigma', type=int, default=1)
 parser.add_argument('--num_samples', type=int, default=1)
 parser.add_argument('--num_frames', type=int, default=5)
 args = parser.parse_args()
 
+threshold = args.threshold
+min_sigma = args.min_sigma
 num_samples = args.num_samples
 num_frames = args.num_frames
-threshold = args.threshold
 
 with mlflow.start_run(run_name="main", nested=True) as active_run:
     # log param
     log_param("threshold", threshold)
+    log_param("min_sigma", min_sigma)
     log_param("num_samples", num_samples)
     log_param("num_frames", num_frames)
     # artifacts
@@ -95,7 +98,7 @@ with mlflow.start_run(run_name="main", nested=True) as active_run:
     generation_run = _get_or_run("generation", {"num_samples":num_samples, "num_frames":num_frames}, git_commit)
     #generation_run = mlflow.run(".", "generation", parameters={"num_samples":num_samples, "num_frames":num_frames})
     # analysis1
-    analysis1_run = _get_or_run("analysis1", {"threshold":threshold, "num_samples":num_samples, "num_frames":num_frames}, git_commit)
+    analysis1_run = _get_or_run("analysis1", {"threshold":threshold, "min_sigma":min_sigma, "num_samples":num_samples, "num_frames":num_frames}, git_commit)
     #analysis1_run = mlflow.run(".", "analysis1", parameters={"threshold":threshold, "num_samples":num_samples})
     # analysis2
     analysis2_run = _get_or_run("analysis2", {"threshold":threshold, "num_samples":num_samples, "num_frames":num_frames}, git_commit)
