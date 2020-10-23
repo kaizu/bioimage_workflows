@@ -37,7 +37,8 @@ artifacts.mkdir(parents=True, exist_ok=True)
 
 #XXX: HERE
 
-generation_artifacts = pathlib.Path(local_file_uri_to_path(generation_run.info.artifact_uri))
+# generation_artifacts = pathlib.Path(local_file_uri_to_path(generation_run.info.artifact_uri))
+mlflow.tracking.MlflowClient().download_artifacts(run_id=generation)
 
 import numpy
 timepoints = numpy.linspace(0, interval * num_frames, num_frames + 1)
@@ -48,7 +49,8 @@ import warnings
 warnings.simplefilter('ignore', RuntimeWarning)
 
 for i in range(num_samples):
-    imgs = [scopyon.Image(data) for data in numpy.load(generation_artifacts / f"images{i:03d}.npy")]
+    # imgs = [scopyon.Image(data) for data in numpy.load(generation_artifacts / f"images{i:03d}.npy")]
+    imgs = [scopyon.Image(data) for data in numpy.load(f"./images{i:03d}.npy")]
     spots = [
         scopyon.analysis.spot_detection(
             img.as_array(),
