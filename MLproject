@@ -25,15 +25,12 @@ entry_points:
     command: "python analysis2.py --generation {generation} --analysis1 {analysis1} --threshold {threshold}"
   evaluation1:
     parameters:
-      generated_data: {type: string, default: "/tmp/foobar"}
-      num_samples: {type: int, default: 1}
-      num_frames: {type: int, default: 5}
-      threshold: {type: float, default: 50.0}
-    command: "python evaluation1.py --generated_data {generated_data} --num_samples {num_samples} --num_frames {num_frames} --threshold {threshold}"
+      generation: {type: string, default: ""}
+      analysis1: {type: string, default: ""}
+    command: "python evaluation1.py --generation {generation} --analysis1 {analysis1}"
   main:
     parameters:
       num_samples: {type: int, default: 1}
       num_frames: {type: int, default: 5}
       threshold: {type: float, default: 50.0}
     command: "python main.py --num_samples {num_samples} --num_frames {num_frames} --threshold {threshold}"
-    
