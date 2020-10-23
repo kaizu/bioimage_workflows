@@ -3,6 +3,7 @@ import pathlib
 
 import mlflow
 from mlflow import log_metric, log_param, log_artifacts
+from mlflow.utils.file_utils import local_file_uri_to_path
 
 entrypoint = "analysis2"
 parser = argparse.ArgumentParser(description='analysis2 step')
