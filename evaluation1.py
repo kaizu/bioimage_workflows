@@ -115,7 +115,7 @@ w = h = 1
 H, xedges, yedges = numpy.histogram2d(x=closest[0], y=closest[1], bins=41, range=[[-w, +w], [-h, +h]])
 fig = px.imshow(H, x=(xedges[: -1]+xedges[1: ])*0.5, y=(yedges[: -1]+yedges[1: ])*0.5)
 # fig.show()
-fig.write_image(artifacts / "evaluation1_1.png")
+# fig.write_image(str(artifacts / "heatmap1.png"))
 
 # r = 6
 # idx = 0
