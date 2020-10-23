@@ -79,3 +79,6 @@ for i in range(num_samples):
 
 log_artifacts(str(artifacts))
 mlflow.end_run()
+
+import shutil
+shutil.rmtree(str(artifacts))

@@ -75,3 +75,6 @@ warnings.resetwarnings()
 
 log_artifacts(str(artifacts))
 mlflow.end_run()
+
+import shutil
+shutil.rmtree(str(artifacts))

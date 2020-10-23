@@ -140,3 +140,6 @@ log_metric("missing", missing)
 
 log_artifacts(str(artifacts))
 mlflow.end_run()
+
+import shutil
+shutil.rmtree(str(artifacts))

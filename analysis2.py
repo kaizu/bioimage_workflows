@@ -140,3 +140,6 @@ fig.write_image(str(artifacts / "histogram2.png"))
 
 log_artifacts(str(artifacts))
 mlflow.end_run()
+
+import shutil
+shutil.rmtree(str(artifacts))
