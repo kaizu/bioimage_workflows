@@ -40,14 +40,8 @@ artifacts.mkdir(parents=True, exist_ok=True)
 
 generation_artifacts = pathlib.Path(local_file_uri_to_path(generation_run.info.artifact_uri))
 
-# nproc = 1
-
 import numpy
 timepoints = numpy.linspace(0, interval * num_frames, num_frames + 1)
-
-# inputpath = pathlib.Path(generated_data.replace("file://", ""))
-# artifacts = pathlib.Path(generated_data.replace("file://", ""))
-# artifacts.mkdir(parents=True, exist_ok=True)
 
 import scopyon
 

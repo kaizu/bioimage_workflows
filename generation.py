@@ -38,8 +38,6 @@ artifacts.mkdir(parents=True, exist_ok=True)
 
 #XXX: HERE
 
-#nproc = 8
-
 import numpy
 rng = numpy.random.RandomState(seed)
 
@@ -51,8 +49,6 @@ config.default.detector.exposure_time = exposure_time
 pixel_length = config.default.detector.pixel_length / config.default.magnification
 L_2 = config.default.detector.image_size[0] * pixel_length * 0.5
 L_2
-
-#config.environ.processes = nproc
 
 timepoints = numpy.linspace(0, interval * num_frames, num_frames + 1)
 ndim = 2

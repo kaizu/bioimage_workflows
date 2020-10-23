@@ -47,8 +47,9 @@ with mlflow.start_run(nested=True) as active_run:
     # #evaluation1_run = mlflow.run(".", "evaluation1", parameters={"threshold":threshold, "num_samples":num_samples})
     # 
 
-    for key, value in itertools.chain(generation_run.data.metrics.items(), analysis1_run.data.metrics.items()):
-        log_metric(key, value)
+    for run_obj in (generation_run, analysis1_run):
+        for key, value in run_obj.data.metrics.items():
+            log_metric(key, value)
     # log_metric("x_mean", float(evaluation1_run.data.metrics["x_mean"]))
     # log_metric("y_mean", float(evaluation1_run.data.metrics["y_mean"]))
     # log_metric("x_std", float(evaluation1_run.data.metrics["x_std"]))
