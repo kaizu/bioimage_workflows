@@ -11,15 +11,12 @@ entry_points:
     command: "python generation.py --num_samples {num_samples} --num_frames {num_frames} --exposure_time {exposure_time}"
   analysis1:
     parameters:
-      generated_data: {type: string, default: "/tmp/foobar"}
-      num_samples: {type: int, default: 1}
-      num_frames: {type: int, default: 5}
+      generation: {type: string, default: ""}
       max_sigma: {type: int, default: 4}
       min_sigma: {type: int, default: 1}
       threshold: {type: float, default: 50.0}
       overlap: {type: float, default: 0.5}
-      interval: {type: float, default: 33.0e-3}
-    command: "python analysis1.py --generated_data {generated_data} --num_samples {num_samples} --num_frames {num_frames} --min_sigma {min_sigma} --max_sigma {max_sigma} --threshold {threshold} --overlap {overlap} --interval {interval}"
+    command: "python analysis1.py --generation {generation} --min_sigma {min_sigma} --max_sigma {max_sigma} --threshold {threshold} --overlap {overlap}"
   analysis2:
     parameters:
       generated_data: {type: string, default: "/tmp/foobar"}
