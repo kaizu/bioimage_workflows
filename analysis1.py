@@ -10,7 +10,7 @@ Original file is located at
 import argparse
 
 parser = argparse.ArgumentParser(description='analysis1 step')
-parser.add_argument('--generated_data', type=str, default="./artifacts")
+parser.add_argument('--generated_data', type=str, default="/tmp/foobar")
 parser.add_argument('--num_samples', type=int, default=1)
 parser.add_argument('--num_frames', type=int, default=5)
 parser.add_argument('--min_sigma', type=int, default=1)
@@ -77,5 +77,6 @@ warnings.resetwarnings()
 
 #!ls ./artifacts
 
-log_artifacts("./artifacts")
+#log_artifacts("./artifacts")
+log_artifacts(generated_data)
 mlflow.end_run()
