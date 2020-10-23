@@ -10,7 +10,8 @@ parser.add_argument('--num_frames', type=int, default=5)
 parser.add_argument('--exposure_time', type=float, default=0.033)
 args = parser.parse_args()
 
-active_run = mlflow.start_run(run_name="generation")
+active_run = mlflow.start_run()
+mlflow.set_tag("mlflow.runName", "generation")
 
 seed = args.seed
 interval = args.interval

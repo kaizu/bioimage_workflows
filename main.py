@@ -18,7 +18,8 @@ min_sigma = args.min_sigma
 num_samples = args.num_samples
 num_frames = args.num_frames
 
-with mlflow.start_run(run_name="main", nested=True) as active_run:
+with mlflow.start_run(nested=True) as active_run:
+    mlflow.set_tag("mlflow.runName", "main")
     for key, value in vars(args).items():
         log_param(key, value)
 
@@ -44,7 +45,6 @@ with mlflow.start_run(run_name="main", nested=True) as active_run:
     # #evaluation1_run = mlflow.run(".", "evaluation1", parameters={"threshold":threshold, "num_samples":num_samples})
     # 
 
-    mlflow.set_tag("mlflow.runName", "run_name")
     for key, value in generation_run.data.metrics.items():
         log_metric(key, value)
     # log_metric("x_mean", float(evaluation1_run.data.metrics["x_mean"]))
