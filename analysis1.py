@@ -38,7 +38,7 @@ artifacts.mkdir(parents=True, exist_ok=True)
 
 #XXX: HERE
 
-generation_artifacts = local_file_uri_to_path(generation_run.info.artifact_uri)
+generation_artifacts = pathlib.Path(local_file_uri_to_path(generation_run.info.artifact_uri))
 
 # nproc = 1
 
