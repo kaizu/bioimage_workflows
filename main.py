@@ -1,5 +1,6 @@
 import pathlib
 import argparse
+import itertools
 
 import mlflow
 from mlflow.utils import mlflow_tags
@@ -20,6 +21,7 @@ num_samples = args.num_samples
 num_frames = args.num_frames
 
 with mlflow.start_run(nested=True) as active_run:
+    git_commit = active_run.data.tags.get(mlflow_tags.MLFLOW_GIT_COMMIT)
     mlflow.set_tag("mlflow.runName", entrypoint)
     for key, value in vars(args).items():
         log_param(key, value)
@@ -28,7 +30,6 @@ with mlflow.start_run(nested=True) as active_run:
     #artifacts = pathlib.Path("./artifacts")
     #artifacts.mkdir(parents=True, exist_ok=True)
     # check git version
-    git_commit = active_run.data.tags.get(mlflow_tags.MLFLOW_GIT_COMMIT)
     # generation
     generation_run = _get_or_run("generation", {"num_samples": num_samples, "num_frames": num_frames}, git_commit)
     # artifactsPath = generation_run.data.params["artifactsPath"]
@@ -46,7 +47,7 @@ with mlflow.start_run(nested=True) as active_run:
     # #evaluation1_run = mlflow.run(".", "evaluation1", parameters={"threshold":threshold, "num_samples":num_samples})
     # 
 
-    for key, value in generation_run.data.metrics.items():
+    for key, value in itertools.chain(generation_run.data.metrics.items(), analysis1_run.metrics.items()):
         log_metric(key, value)
     # log_metric("x_mean", float(evaluation1_run.data.metrics["x_mean"]))
     # log_metric("y_mean", float(evaluation1_run.data.metrics["y_mean"]))
