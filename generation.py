@@ -10,7 +10,7 @@ parser.add_argument('--num_frames', type=int, default=5)
 parser.add_argument('--exposure_time', type=float, default=0.033)
 args = parser.parse_args()
 
-run_obj = mlflow.start_run(run_name="generation")
+active_run = mlflow.start_run(run_name="generation")
 
 seed = args.seed
 interval = args.interval
@@ -50,7 +50,7 @@ for key, value in vars(args).items():
 # ndim = 2
 # 
 # import pathlib
-# runid = run_obj.info.run_id
+# runid = active_run.info.run_id
 # artifactsPath = "/tmp/" + str(runid) + "/artifacts"
 # artifacts = pathlib.Path(artifactsPath)
 # artifacts.mkdir(parents=True, exist_ok=True)
