@@ -2,6 +2,7 @@ import pathlib
 import argparse
 
 import mlflow
+from mlflow.utils import mlflow_tags
 from mlflow import log_metric, log_param, log_artifacts
 from mlflow_utils import _get_or_run
 
