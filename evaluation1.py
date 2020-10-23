@@ -10,7 +10,7 @@ parser = argparse.ArgumentParser(description='evaluation1 step')
 parser.add_argument('--generation', type=str, default="")
 parser.add_argument('--analysis1', type=str, default="")
 # parser.add_argument('--analysis2', type=str, default="")
-parser.add_argument('--threshold', type=float, default=50.0)
+parser.add_argument('--max_distance', type=float, default=50.0)
 args = parser.parse_args()
 
 active_run = mlflow.start_run()
@@ -19,7 +19,7 @@ mlflow.set_tag("mlflow.runName", entrypoint)
 generation = args.generation
 analysis1 = args.analysis1
 # analysis2 = args.analysis2
-threshold = args.threshold
+max_distance = args.max_distance
 
 for key, value in vars(args).items():
     log_param(key, value)
@@ -83,7 +83,7 @@ for i in range(num_samples):
             closest.append(distance[idx])
 
             distance = numpy.sqrt(distance[idx] ** 2).sum()
-            if distance < threshold:
+            if distance < max_distance:
                 rates[0] += 1
             else:
                 rates[1] += 1
@@ -93,7 +93,7 @@ for i in range(num_samples):
             distance = (distance ** 2).sum(axis=1)
             idx = distance.argmin()
             distance = numpy.sqrt(distance[idx])
-            if distance < threshold:
+            if distance < max_distance:
                 rates[2] += 1
             else:
                 rates[3] += 1

@@ -10,7 +10,7 @@ parser = argparse.ArgumentParser(description='analysis2 step')
 parser.add_argument('--generation', type=str, default="")
 parser.add_argument('--analysis1', type=str, default="")
 parser.add_argument('--seed', type=int, default=123)
-parser.add_argument('--threshold', type=float, default=50.0)
+parser.add_argument('--max_distance', type=float, default=50.0)
 args = parser.parse_args()
 
 active_run = mlflow.start_run()
@@ -19,7 +19,7 @@ mlflow.set_tag("mlflow.runName", entrypoint)
 generation = args.generation
 analysis1 = args.analysis1
 seed = args.seed
-threshold = args.threshold
+max_distance = args.max_distance
 
 for key, value in vars(args).items():
     log_param(key, value)
@@ -45,7 +45,7 @@ pixel_length = config.default.detector.pixel_length / config.default.magnificati
 
 import numpy
 
-def trace_spots(spots, threshold=numpy.inf, ndim=2):
+def trace_spots(spots, max_distance=numpy.inf, ndim=2):
     observation_vec = []
     lengths = []
     for i in range(len(spots[0])):
@@ -54,7 +54,7 @@ def trace_spots(spots, threshold=numpy.inf, ndim=2):
             displacements = numpy.power(spots[j][:, : ndim] - spots[j - 1][iprev, : ndim], 2).sum(axis=1)
             inext = displacements.argmin()
             displacement = numpy.sqrt(displacements[inext])
-            if displacement > threshold:
+            if displacement > max_distance:
                 if j > 1:
                     lengths.append(j - 1)
                 break
@@ -83,7 +83,7 @@ for i in range(num_samples):
         spots[-1] = numpy.asarray(spots[-1])
     # print(spots)
 
-    observation_vec_, lengths_ = trace_spots(spots, threshold=threshold, ndim=ndim)
+    observation_vec_, lengths_ = trace_spots(spots, max_distance=max_distance, ndim=ndim)
     observation_vec.extend(observation_vec_)
     lengths.extend(lengths_)
 observation_vec = numpy.array(observation_vec)
