@@ -28,9 +28,9 @@ for key, value in vars(args).items():
     log_param(key, value)
 
 generation_run = mlflow.tracking.MlflowClient().get_run(generation)
-num_samples = generation_run.data.params["num_samples"]
-num_frames = generation_run.data.params["num_frames"]
-interval = generation_run.data.params["interval"]
+num_samples = int(generation_run.data.params["num_samples"])
+num_frames = int(generation_run.data.params["num_frames"])
+interval = float(generation_run.data.params["interval"])
 
 runid = active_run.info.run_id
 artifacts = pathlib.Path("./artifacts/" + str(runid))
